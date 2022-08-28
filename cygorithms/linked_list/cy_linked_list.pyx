@@ -114,6 +114,7 @@ cdef class CyLinkedList(CyBaseLinkedList):
 
         return self
 
+    @cython.nonecheck(False)
     def insert_after(self, int index, object val):
         cdef CyLinkedListNode new_node
         new_node = CyLinkedListNode(val)
@@ -121,6 +122,8 @@ cdef class CyLinkedList(CyBaseLinkedList):
 
         new_node.next = current.next
         current.next = new_node
+        if new_node.next is None:
+            self.end = new_node
 
         self.list_len += 1
         return self
@@ -181,6 +184,7 @@ cdef class CyCircularLinkedList(CyLinkedList):
 
         return self
 
+    @cython.nonecheck(False)
     def insert_after(self, int index, object val):
         cdef CyLinkedListNode new_node
         new_node = CyLinkedListNode(val)
@@ -208,15 +212,16 @@ cdef class CyBaseDoubleLinkedList:
     @cython.nonecheck(False)
     cdef CyDoubleLinkedListNode get_node(self, int index):
         cdef CyDoubleLinkedListNode current
-        cdef int i
+        cdef int i, reduced_idx
+        reduced_idx = index % self.list_len
 
-        if index <= self.list_len // 2:
+        if reduced_idx <= self.list_len // 2:
             current = self.begin
-            for i in range(index):
+            for i in range(reduced_idx):
                 current = current.next
         else:
             current = self.end
-            for i in range(self.list_len - index - 1):
+            for i in range(self.list_len - reduced_idx - 1):
                 current = current.prev
 
         return current
@@ -299,15 +304,19 @@ cdef class CyDoubleLinkedList(CyBaseDoubleLinkedList):
 
         return self
         
+    @cython.nonecheck(False)
     def insert_after(self, int index, object val):
         cdef CyDoubleLinkedListNode new_node
         new_node = CyDoubleLinkedListNode(val)
         current = self.get_node(index)
 
         new_node.next = current.next
-        current.next.prev = new_node
-        new_node.prev = current
+        if new_node.next is not None:
+            new_node.next.prev = new_node
         current.next = new_node
+        new_node.prev = current
+        if new_node.next is None:
+            self.end = new_node
 
         self.list_len += 1
         return self
@@ -373,6 +382,7 @@ cdef class CyDoubleCircularLinkedList(CyDoubleLinkedList):
 
         return self
 
+    @cython.nonecheck(False)
     def insert_after(self, int index, object val):
         cdef CyDoubleLinkedListNode new_node
         new_node = CyDoubleLinkedListNode(val)

@@ -28,6 +28,6 @@ if __name__ == "__main__":
     # cl = SingleCircularLinkedList()
     # cl.addright(1).addright(2).addright(3)
     # print(cl.insert_after(2, 4).insert_after(3, 5).popleft().end.data)
-    dl = DoubleCircularLinkedList([1, 2, 3], [1, 2], [1])
+    l = DoubleLinkedList([1, 2, 3], [1, 2], [1])
     # dl.addright([1, 2, 3]).addright([1, 2]).addright([1])
-    print(dl.insert_after(5, [0, 0]).insert_after(6, [1, 1]).popright())
+    print(l.insert_after(2, [0, 0]).insert_after(2, [1, 1]))

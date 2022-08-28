@@ -49,7 +49,8 @@ class BaseLinkedList(ABC):
         -------
         self : list itself
         """
-        return self.list.addright(val)
+        self.list.addright(val)
+        return self
 
     def addleft(self, val) -> BaseLinkedList:
         """
@@ -64,7 +65,8 @@ class BaseLinkedList(ABC):
         -------
         self : list itself
         """
-        return self.list.addleft(val)
+        self.list.addleft(val)
+        return self
 
     def popright(self) -> BaseLinkedList:
         """
@@ -74,7 +76,8 @@ class BaseLinkedList(ABC):
         -------
         self : list itself
         """
-        return self.list.popright()
+        self.list.popright()
+        return self
 
     def popleft(self) -> BaseLinkedList:
         """
@@ -84,7 +87,8 @@ class BaseLinkedList(ABC):
         -------
         self : list itself
         """
-        return self.list.popleft()
+        self.list.popleft()
+        return self
 
     def insert_after(self, index: int, val: Any) -> BaseLinkedList:
         """
@@ -102,7 +106,8 @@ class BaseLinkedList(ABC):
         self : list itself
         """
         index = self._check_index(index)
-        return self.list.insert_after(index, val)
+        self.list.insert_after(index, val)
+        return self
 
 class SingleLinkedList(BaseLinkedList):
     """
