@@ -1,12 +1,27 @@
-# from cygorithms.linked_list.cy_linked_list import CyLinkedList, CyCircularLinkedList
-# from cygorithms.linked_list.linked_list import LinkedList as pyLL
-
 from cygorithms.linked_list.linked_list import (
     SingleLinkedList,
     SingleCircularLinkedList,
     DoubleLinkedList,
     DoubleCircularLinkedList
 )
+
+from cygorithms.arrays import OneDArray
+from cygorithms.arrays import DynamicOneDArray
+
+def degree_cache(degree):
+    nums = {}
+    def degree_wrapper(num):
+        if num in nums:
+            return nums[num]
+        else:
+            num_degree = degree(num)
+            nums[num] = num_degree
+            return num_degree
+    return degree_wrapper
+
+@degree_cache
+def degree(num):
+    return num**2
 
 if __name__ == "__main__":
     # l = pyLL()
@@ -28,6 +43,7 @@ if __name__ == "__main__":
     # cl = SingleCircularLinkedList()
     # cl.addright(1).addright(2).addright(3)
     # print(cl.insert_after(2, 4).insert_after(3, 5).popleft().end.data)
-    l = DoubleLinkedList([1, 2, 3], [1, 2], [1])
+    # l = DoubleLinkedList([1, 2, 3], [1, 2], [1])
     # dl.addright([1, 2, 3]).addright([1, 2]).addright([1])
-    print(l.insert_after(2, [0, 0]).insert_after(2, [1, 1]))
+    # print(l.insert_after(2, [0, 0]).insert_after(2, [1, 1]))
+    arr = OneDArray(int, 4, [1, 2, 3, 4])
