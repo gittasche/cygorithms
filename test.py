@@ -5,8 +5,8 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
-from cygorithms.arrays import OneDArray
-from cygorithms.arrays import DynamicOneDArray
+from cygorithms.arrays import OneDArray, DynamicOneDArray
+from cygorithms.arrays import selection_sort
 
 def degree_cache(degree):
     nums = {}
@@ -46,4 +46,10 @@ if __name__ == "__main__":
     # l = DoubleLinkedList([1, 2, 3], [1, 2], [1])
     # dl.addright([1, 2, 3]).addright([1, 2]).addright([1])
     # print(l.insert_after(2, [0, 0]).insert_after(2, [1, 1]))
-    arr = OneDArray(int, 4, [1, 2, 3, 4])
+    # arr = OneDArray(int, 4, [1, 2, 3, 4])
+    #arr = OneDArray(int, 5, [1, 2, 3, 4, 5])
+    # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
+    # arr.delete(1)
+    # selection_sort(arr, comp = lambda u, v: u > v, end=3)
+    # print(arr)
+    print(bool(lambda u, v: u > v))

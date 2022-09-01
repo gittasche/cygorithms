@@ -3,7 +3,12 @@ from cygorithms.arrays.arrays import (
     DynamicOneDArray
 )
 
+from cygorithms.arrays.algorithms import (
+    selection_sort
+)
+
 __all__ = [
     "OneDArray",
-    "DynamicOneDArray"
+    "DynamicOneDArray",
+    "selection_sort"
 ]

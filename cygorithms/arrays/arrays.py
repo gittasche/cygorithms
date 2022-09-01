@@ -1,9 +1,9 @@
-from . import carray
+from . import c_array
 from typing import Any
 
 class OneDArray:
     def __init__(self, dtype, *args, **kwargs):
-        self.array = carray.OneDArray(dtype, *args, **kwargs)
+        self.array = c_array.OneDArray(dtype, *args, **kwargs)
 
     @property
     def size(self):
@@ -32,7 +32,7 @@ class OneDArray:
 
 class DynamicOneDArray(OneDArray):
     def __init__(self, dtype, *args, **kwargs):
-        self.array = carray.DynamicOneDArray(dtype, *args, **kwargs)
+        self.array = c_array.DynamicOneDArray(dtype, *args, **kwargs)
 
     def __str__(self):
         return super()._to_str(self.array._last_pos_filled + 1)

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "array.h"
-#include "util.h"
+#include "../c_util/util.h"
 
 typedef struct
 {

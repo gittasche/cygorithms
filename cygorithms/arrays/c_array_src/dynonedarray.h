@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "dynarray.h"
 #include "onedarray.h"
-#include "util.h"
+#include "../c_util/util.h"
 
 typedef struct {
     PyObject_HEAD
