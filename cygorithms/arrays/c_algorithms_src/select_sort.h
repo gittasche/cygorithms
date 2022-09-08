@@ -4,7 +4,6 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <stddef.h>
-#include <stdio.h>
 #include "../c_array_src/onedarray.h"
 #include "../c_array_src/dynonedarray.h"
 #include "../c_util/util.h"

@@ -6,7 +6,6 @@
 #include <structmember.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "array.h"
 #include "../c_util/util.h"
 

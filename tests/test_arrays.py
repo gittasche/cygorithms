@@ -3,7 +3,8 @@ import pytest
 from cygorithms.arrays import (
     OneDArray,
     DynamicOneDArray,
-    selection_sort
+    selection_sort,
+    merge_sort
 )
 
 @pytest.mark.parametrize("array_type",
@@ -50,6 +51,12 @@ def test_arrays(array_type, dtype, container, filler):
         DynamicOneDArray
     ]
 )
+@pytest.mark.parametrize("sort_alg",
+    [
+        selection_sort,
+        merge_sort
+    ]
+)
 @pytest.mark.parametrize("dtype, container",
     [
         (
@@ -68,14 +75,14 @@ def test_arrays(array_type, dtype, container, filler):
         lambda u, v: u >= v
     ]
 )
-def test_arrays_algs(array_type, dtype, container, comp):
+def test_arrays_algs(array_type, sort_alg, dtype, container, comp):
     arr = array_type(dtype, container)
     if comp is None:
         sorted_container = sorted(container)
     else:
         sorted_container = sorted(container)[::-1]
 
-    selection_sort(arr, comp=comp)
+    sort_alg(arr, comp=comp)
     
     for el, check in zip(sorted_container, arr):
         assert el == check

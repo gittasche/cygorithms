@@ -5,8 +5,13 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
-from cygorithms.arrays import OneDArray, DynamicOneDArray
-from cygorithms.arrays import selection_sort
+# from cygorithms.arrays import Stack
+
+from cygorithms.arrays import Stack
+from cygorithms.arrays.c_array import ArrayStack
+
+# from cygorithms.arrays import OneDArray, DynamicOneDArray
+# from cygorithms.arrays import selection_sort, merge_sort
 
 def degree_cache(degree):
     nums = {}
@@ -46,10 +51,22 @@ if __name__ == "__main__":
     # l = DoubleLinkedList([1, 2, 3], [1, 2], [1])
     # dl.addright([1, 2, 3]).addright([1, 2]).addright([1])
     # print(l.insert_after(2, [0, 0]).insert_after(2, [1, 1]))
-    # arr = OneDArray(int, 4, [1, 2, 3, 4])
-    #arr = OneDArray(int, 5, [1, 2, 3, 4, 5])
-    # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
-    # arr.delete(1)
-    # selection_sort(arr, comp = lambda u, v: u > v, end=3)
+    # arr = OneDArray(int, 3, [1, 2, 3])
+    # arr[1] = 0
     # print(arr)
-    print(bool(lambda u, v: u > v))
+    # l1 = {"a": 1}
+    # l2 = {"b": 2}
+    # l3 = {"c": 3}
+    # arr = OneDArray(dict, 3, [l1, l2, l3])
+    # l0 = {"d": 0}
+    # arr[1] = l0
+    # print(arr)
+    # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
+    # merge_sort(arr)
+    # print(arr)
+    # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
+    # print(arr)
+    st = Stack(int, [1, 2, 3])
+    st.push(4)
+    print(st.pop())
+    print(st.pop())

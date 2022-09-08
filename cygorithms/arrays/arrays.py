@@ -2,6 +2,15 @@ from . import c_array
 from typing import Any
 
 class OneDArray:
+    """
+    One dimensional array class. Creates C-contigous
+    array of python dtype.
+
+    Parameters
+    ----------
+    dtype : python type
+        data type of array elements
+    """
     def __init__(self, dtype, *args, **kwargs):
         self.array = c_array.OneDArray(dtype, *args, **kwargs)
 
@@ -26,6 +35,9 @@ class OneDArray:
 
     def __str__(self) -> str:
         return self._to_str(len(self.array))
+
+    def assign_index(self, *args):
+        self.array.assign_index(*args)
 
     def fill(self, value: Any) -> None:
         self.array.fill(value)

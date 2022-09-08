@@ -3,6 +3,7 @@
 #include "onedarray.h"
 #include "dynarray.h"
 #include "dynonedarray.h"
+#include "stack.h"
 
 static struct PyModuleDef array_struct = {
     PyModuleDef_HEAD_INIT,
@@ -44,6 +45,13 @@ PyMODINIT_FUNC PyInit_c_array(void)
     }
     Py_INCREF(&DynamicOneDArrayType);
     PyModule_AddObject(c_array, "DynamicOneDArray", (PyObject*)(&DynamicOneDArrayType));
+
+    if (PyType_Ready(&ArrayStackType) < 0)
+    {
+        return NULL;
+    }
+    Py_INCREF(&ArrayStackType);
+    PyModule_AddObject(c_array, "ArrayStack", (PyObject*)(&ArrayStackType));
 
     return c_array;
 }
