@@ -15,7 +15,7 @@ typedef struct {
     OneDArray *_one_d_array;
     double _load_factor;
     size_t _num;
-    size_t _last_pos_filled;
+    long _last_pos_filled;
     size_t _size;
 } DynamicOneDArray;
 
@@ -126,7 +126,7 @@ static PyObject* DynamicOneDArray__modify(DynamicOneDArray *self, PyObject *args
             {
                 Py_INCREF(Py_None);
                 arr_new[j] = _data[i];
-                j += 1;
+                j++;
             }
         }
         self->_last_pos_filled = j - 1;
@@ -207,7 +207,7 @@ static struct PyMethodDef DynamicOneDArray_PyMethodDef[] = {
 static struct PyMemberDef DynamicOneDArray_PyMemberDef[] = {
     {"size", T_PYSSIZET, offsetof(DynamicOneDArray, _size), READONLY, NULL},
     {"_num", T_PYSSIZET, offsetof(DynamicOneDArray, _num), READONLY, NULL},
-    {"_last_pos_filled", T_PYSSIZET, offsetof(DynamicOneDArray, _last_pos_filled), READONLY, NULL},
+    {"_last_pos_filled", T_LONG, offsetof(DynamicOneDArray, _last_pos_filled), READONLY, NULL},
     {NULL}
 };
 

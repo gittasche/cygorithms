@@ -10,8 +10,8 @@ from cygorithms.linked_list.linked_list import (
 from cygorithms.arrays import Stack
 from cygorithms.arrays.c_array import ArrayStack
 
-# from cygorithms.arrays import OneDArray, DynamicOneDArray
-# from cygorithms.arrays import selection_sort, merge_sort
+from cygorithms.arrays import OneDArray, DynamicOneDArray
+from cygorithms.arrays import selection_sort, merge_sort
 
 def degree_cache(degree):
     nums = {}
@@ -61,8 +61,8 @@ if __name__ == "__main__":
     # l0 = {"d": 0}
     # arr[1] = l0
     # print(arr)
-    # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
-    # merge_sort(arr)
+    # arr = DynamicOneDArray(int, 1, [1])
+    # arr.delete(0)
     # print(arr)
     # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
     # print(arr)
@@ -70,3 +70,6 @@ if __name__ == "__main__":
     st.push(4)
     print(st.pop())
     print(st.pop())
+    print(st.pop())
+    print(st.pop())
+    print(st.is_empty())

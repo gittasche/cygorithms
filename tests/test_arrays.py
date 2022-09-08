@@ -3,6 +3,7 @@ import pytest
 from cygorithms.arrays import (
     OneDArray,
     DynamicOneDArray,
+    Stack,
     selection_sort,
     merge_sort
 )
