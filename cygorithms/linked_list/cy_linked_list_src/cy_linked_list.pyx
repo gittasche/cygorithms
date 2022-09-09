@@ -8,6 +8,9 @@ cdef class CyLinkedListNode:
         self.data = val
         self.next = None
 
+    def __str__(self):
+        return str(self.data)
+
 cdef class CyDoubleLinkedListNode:
     cdef object data
     cdef CyDoubleLinkedListNode next
@@ -17,6 +20,9 @@ cdef class CyDoubleLinkedListNode:
         self.data = val
         self.next = None
         self.prev = None
+
+    def __str__(self):
+        return str(self.data)
 
 cdef class CyBaseLinkedList:
     cdef CyLinkedListNode begin

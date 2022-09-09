@@ -5,10 +5,9 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
-# from cygorithms.arrays import Stack
-
 from cygorithms.arrays import Stack
 from cygorithms.arrays.c_array import ArrayStack
+from cygorithms.trees.cy_trees import BinarySearchTree
 
 from cygorithms.arrays import OneDArray, DynamicOneDArray
 from cygorithms.arrays import selection_sort, merge_sort
@@ -66,10 +65,15 @@ if __name__ == "__main__":
     # print(arr)
     # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
     # print(arr)
-    st = Stack(int, [1, 2, 3])
-    st.push(4)
-    print(st.pop())
-    print(st.pop())
-    print(st.pop())
-    print(st.pop())
-    print(st.is_empty())
+    # st = Stack(int, [1, 2, 3])
+    # st.push(4)
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.is_empty())
+    bt = BinarySearchTree(1, lambda u, v: u > v)
+    bt.insert(2)
+    bt.insert(0)
+    bt.insert(3)
+    print(bt.search(0))

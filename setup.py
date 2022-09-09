@@ -38,10 +38,24 @@ def _get_linked_list_ext():
 
     return linked_list_ext_full
 
+def _get_trees_ext():
+    trees_name = ".".join([__name__, "trees", "cy_trees"])
+    trees_sources = ["/".join([__name__, "trees", "cy_trees_src", "cy_binary_tree.pyx"])]
+
+    trees_ext = Extension(
+        name=trees_name,
+        sources=trees_sources
+    )
+
+    trees_ext_full = [trees_ext]
+
+    return trees_ext_full
+
 extensions = []
 
 extensions.extend(_get_array_ext())
 extensions.extend(_get_linked_list_ext())
+extensions.extend(_get_trees_ext())
 
 setup(
     name=__name__,
