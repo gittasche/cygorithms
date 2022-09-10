@@ -6,10 +6,10 @@ set -x
 cd ../../
 
 python -m venv test_env
-source test_env/bin/activate
+test_env/Scripts/activate
 
-python -m pip install cygorithms/cygorithms/dist/*.tar.gz
+python -m pip install cygorithms/cygorithms/.
 python -m pip install pytest
 
 cd cygorithms/cygorithms
-python -m pytest /tests
+python -m pytest tests/

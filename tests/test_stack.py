@@ -2,7 +2,9 @@ import pytest
 
 from cygorithms.arrays import Stack
 
-@pytest.mark.parametrize("dtype, container",
+
+@pytest.mark.parametrize(
+    "dtype, container",
     [
         (
             int,
@@ -18,7 +20,7 @@ def test_arrays_stack(dtype, container):
     st = Stack(dtype, container)
 
     assert st.peek() == container[-1]
-    
+
     assert st.pop() == container[-1]
     assert st.peek() == container[-2]
 

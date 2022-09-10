@@ -3,18 +3,20 @@ import pytest
 from cygorithms.arrays import (
     OneDArray,
     DynamicOneDArray,
-    Stack,
     selection_sort,
     merge_sort
 )
 
-@pytest.mark.parametrize("array_type",
+
+@pytest.mark.parametrize(
+    "array_type",
     [
         OneDArray,
         DynamicOneDArray
     ]
 )
-@pytest.mark.parametrize("dtype, container, filler",
+@pytest.mark.parametrize(
+    "dtype, container, filler",
     [
         (
             int,
@@ -44,21 +46,25 @@ def test_arrays(array_type, dtype, container, filler):
         arr.append(filler)
         assert arr[4] == filler
         arr.delete(2)
-        assert arr[2] == None
+        assert arr[2] is None
 
-@pytest.mark.parametrize("array_type",
+
+@pytest.mark.parametrize(
+    "array_type",
     [
         OneDArray,
         DynamicOneDArray
     ]
 )
-@pytest.mark.parametrize("sort_alg",
+@pytest.mark.parametrize(
+    "sort_alg",
     [
         selection_sort,
         merge_sort
     ]
 )
-@pytest.mark.parametrize("dtype, container",
+@pytest.mark.parametrize(
+    "dtype, container",
     [
         (
             int,
@@ -70,7 +76,8 @@ def test_arrays(array_type, dtype, container, filler):
         )
     ]
 )
-@pytest.mark.parametrize("comp",
+@pytest.mark.parametrize(
+    "comp",
     [
         None,
         lambda u, v: u >= v
@@ -84,6 +91,6 @@ def test_arrays_algs(array_type, sort_alg, dtype, container, comp):
         sorted_container = sorted(container)[::-1]
 
     sort_alg(arr, comp=comp)
-    
+
     for el, check in zip(sorted_container, arr):
         assert el == check

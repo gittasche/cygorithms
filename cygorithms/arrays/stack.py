@@ -1,5 +1,6 @@
 from . import c_array
 
+
 class Stack:
     def __init__(self, dtype, *args, **kwargs):
         self.stack = c_array.ArrayStack(dtype, *args, **kwargs)

@@ -1,5 +1,6 @@
 import cython
 
+
 cdef class CyLinkedListNode:
     cdef object data
     cdef CyLinkedListNode next
@@ -7,6 +8,10 @@ cdef class CyLinkedListNode:
     def __init__(self, val):
         self.data = val
         self.next = None
+
+    def __str__(self):
+        return str(self.data)
+
 
 cdef class CyDoubleLinkedListNode:
     cdef object data
@@ -17,6 +22,10 @@ cdef class CyDoubleLinkedListNode:
         self.data = val
         self.next = None
         self.prev = None
+
+    def __str__(self):
+        return str(self.data)
+
 
 cdef class CyBaseLinkedList:
     cdef CyLinkedListNode begin
@@ -60,6 +69,7 @@ cdef class CyBaseLinkedList:
 
     def __getitem__(self, int index):
         return self.get_node(index).data
+
 
 cdef class CyLinkedList(CyBaseLinkedList):
     def addright(self, object val):
@@ -127,6 +137,7 @@ cdef class CyLinkedList(CyBaseLinkedList):
 
         self.list_len += 1
         return self
+
 
 cdef class CyCircularLinkedList(CyLinkedList):
     def addright(self, object val):
@@ -249,6 +260,7 @@ cdef class CyBaseDoubleLinkedList:
     def __getitem__(self, int index):
         return self.get_node(index).data
 
+
 cdef class CyDoubleLinkedList(CyBaseDoubleLinkedList):
     def addright(self, object val):
         cdef CyDoubleLinkedListNode new_node
@@ -320,6 +332,7 @@ cdef class CyDoubleLinkedList(CyBaseDoubleLinkedList):
 
         self.list_len += 1
         return self
+
 
 cdef class CyDoubleCircularLinkedList(CyDoubleLinkedList):
     def addright(self, object val):

@@ -5,10 +5,11 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
-# from cygorithms.arrays import Stack
-
 from cygorithms.arrays import Stack
-from cygorithms.arrays.c_array import ArrayStack
+# from cygorithms.arrays.c_array import ArrayStack
+# from cygorithms.trees.cy_trees import BinarySearchTree, BinaryTreeTraversal
+
+from cygorithms.trees import BinarySearchTree, BinaryTreeTraversal
 
 from cygorithms.arrays import OneDArray, DynamicOneDArray
 from cygorithms.arrays import selection_sort, merge_sort
@@ -66,10 +67,30 @@ if __name__ == "__main__":
     # print(arr)
     # arr = DynamicOneDArray(int, 5, [3, 2, 4, 5, 1])
     # print(arr)
-    st = Stack(int, [1, 2, 3])
-    st.push(4)
-    print(st.pop())
-    print(st.pop())
-    print(st.pop())
-    print(st.pop())
-    print(st.is_empty())
+    # st = Stack(int, [1, 2, 3])
+    # st.push(4)
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.pop())
+    # print(st.is_empty())
+    # st = Stack(int, 0, [])
+    # print(st.is_empty())
+    bst = BinarySearchTree()
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(5)
+    bst.insert(0)
+    bst.insert(1)
+    bst.insert(-1)
+    
+    btt = BinaryTreeTraversal(bst)
+    print(btt.depth_first_search(order="post_order"))
+    # bt.insert(2)
+    # bt.insert(-1)
+    # bt.insert(3)
+    # bt.insert(0)
+    # # bt.delete(2)
+    # btt = BinaryTreeTraversal(bt)
+    # print(btt.depth_first_search(order="post_order"))

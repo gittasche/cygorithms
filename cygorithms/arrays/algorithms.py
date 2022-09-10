@@ -2,6 +2,7 @@ from . import c_algorithms
 from .arrays import OneDArray
 from typing import Callable, Optional
 
+
 def selection_sort(
     array: OneDArray,
     *,
@@ -23,6 +24,7 @@ def selection_sort(
     )
 
     return array
+
 
 def merge_sort(
     array: OneDArray,
