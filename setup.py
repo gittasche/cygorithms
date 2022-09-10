@@ -3,8 +3,10 @@ from Cython.Build import cythonize
 from codecs import open
 from os import path
 
+
 __name__ = "cygorithms"
 __version__ = "0.0.1"
+
 
 def get_array_ext():
     array_name = ".".join([__name__, "arrays", "c_array"])
@@ -31,6 +33,7 @@ def get_array_ext():
 
     return array_ext_full
 
+
 def get_linked_list_ext():
     linked_list_name = ".".join([__name__, "linked_list", "cy_linked_list"])
     linked_list_sources = [
@@ -45,6 +48,7 @@ def get_linked_list_ext():
     linked_list_ext_full = [linked_list_ext]
 
     return linked_list_ext_full
+
 
 def get_trees_ext():
     trees_name = ".".join([__name__, "trees", "cy_trees"])
