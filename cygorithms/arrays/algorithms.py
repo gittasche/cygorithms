@@ -3,6 +3,7 @@ from .arrays import OneDArray
 from typing import Callable, Optional
 from numbers import Integral
 
+
 def selection_sort(
     array: OneDArray,
     *,
