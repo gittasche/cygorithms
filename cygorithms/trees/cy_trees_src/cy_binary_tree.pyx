@@ -1,5 +1,5 @@
 import cython
-from cygorithms.arrays.c_array import DynamicOneDArray
+from cygorithms.arrays.c_array import DynamicOneDArray, OneDArray
 from cygorithms.arrays.c_array import ArrayStack
 
 
@@ -16,6 +16,9 @@ cdef class CyTreeNode:
         self.left = -1
         self.right = -1
         self.parent = -1
+
+    def __str__(self):
+        return str(self.data)
 
 
 cdef class CyBinaryTree:
@@ -43,6 +46,9 @@ cdef class CyBinaryTree:
 
 
 cdef class CyBinarySearchTree(CyBinaryTree):
+    def is_empty(self):
+        return self.tree[self.root_idx].data is None
+    
     def insert(self, val):
         cdef int curr_idx
         curr_idx = self.search(val)
@@ -79,7 +85,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
         cdef int curr_idx
         curr_idx = self.root_idx
         if self.tree[curr_idx].data is None:
-            return
+            return -1
         while curr_idx != -1:
             if self.tree[curr_idx].data == val:
                 break
@@ -97,7 +103,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
             return
 
         if self.tree[curr_idx].left == -1 and self.tree[curr_idx].right == -1:
-            if self.tree[curr_idx].parent == -1:
+            if self.tree[curr_idx].is_root:
                 self.tree[self.root_idx].data = None
             else:
                 if self.tree[self.tree[curr_idx].parent].left == curr_idx:
@@ -127,7 +133,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
                 child = self.tree[curr_idx].left
             else:
                 child = self.tree[curr_idx].right
-            if self.tree[curr_idx].parent == -1:
+            if self.tree[curr_idx].is_root:
                 self.tree[self.root_idx].left = self.tree[child].left
                 self.tree[self.root_idx].right = self.tree[child].right
                 self.tree[self.root_idx].data = self.tree[child].data
@@ -149,9 +155,9 @@ cdef class CyBinaryTreeTraversal:
         self.tree = tree
     
     def _in_order(self):
-        cdef int size, node
+        cdef object st
+        cdef int node
         visit = []
-        size = self.tree.size
         node = self.tree.root_idx
         st = ArrayStack(int, 0, [])
         while not st.is_empty() or node != -1:
@@ -164,3 +170,40 @@ cdef class CyBinaryTreeTraversal:
                 node = self.tree.tree[node].right
         return visit
 
+    def _pre_order(self):
+        cdef object st
+        cdef int node
+        visit = []
+        node = self.tree.root_idx
+        st = ArrayStack(int, 1, [node])
+        while not st.is_empty():
+            node = st.pop()
+            visit.append(self.tree.tree[node].data)
+            if self.tree.tree[node].right != -1:
+                st.push(self.tree.tree[node].right)
+            if self.tree.tree[node].left != -1:
+                st.push(self.tree.tree[node].left)
+        return visit
+
+    def _post_order(self):
+        cdef object st, last
+        cdef int node, l, r
+        visit = []
+        node = self.tree.root_idx
+        st = ArrayStack(int, 1, [node])
+        last = OneDArray(int, self.tree.size)
+        last.fill(0)
+        while not st.is_empty():
+            node = st.peek()
+            l = self.tree.tree[node].left
+            r = self.tree.tree[node].right
+            if (l == -1 or last[l]) and (r == -1 or last[r]):
+                st.pop()
+                visit.append(self.tree.tree[node].data)
+                last[node] = 1
+                continue
+            if not (r == -1 or last[r]):
+                st.push(r)
+            if not (l == -1 or last[l]):
+                st.push(l)
+        return visit
