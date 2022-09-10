@@ -6,8 +6,10 @@ from cygorithms.linked_list.linked_list import (
 )
 
 from cygorithms.arrays import Stack
-from cygorithms.arrays.c_array import ArrayStack
-from cygorithms.trees.cy_trees import BinarySearchTree
+# from cygorithms.arrays.c_array import ArrayStack
+# from cygorithms.trees.cy_trees import BinarySearchTree, BinaryTreeTraversal
+
+from cygorithms.trees import BinarySearchTree, BinaryTreeTraversal
 
 from cygorithms.arrays import OneDArray, DynamicOneDArray
 from cygorithms.arrays import selection_sort, merge_sort
@@ -72,9 +74,13 @@ if __name__ == "__main__":
     # print(st.pop())
     # print(st.pop())
     # print(st.is_empty())
-    bt = BinarySearchTree(1, lambda u, v: u < v)
+    # st = Stack(int, 0, [])
+    # print(st.is_empty())
+    bt = BinarySearchTree(1)
     bt.insert(2)
-    bt.insert(0)
+    bt.insert(-1)
     bt.insert(3)
-    bt.delete(0)
-    print(bt.search(3))
+    bt.insert(0)
+    bt.delete(2)
+    btt = BinaryTreeTraversal(bt)
+    print(btt.depth_first_search())

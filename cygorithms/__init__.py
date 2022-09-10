@@ -1,9 +1,11 @@
 from cygorithms import (
     linked_list,
-    arrays
+    arrays,
+    trees
 )
 
 __all__ = [
     "linked_list",
-    "arrays"
+    "arrays",
+    "trees"
 ]

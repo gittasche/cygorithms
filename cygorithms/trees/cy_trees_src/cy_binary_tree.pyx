@@ -1,5 +1,7 @@
 import cython
 from cygorithms.arrays.c_array import DynamicOneDArray
+from cygorithms.arrays.c_array import ArrayStack
+
 
 cdef class CyTreeNode:
     cdef public bint is_root
@@ -15,7 +17,8 @@ cdef class CyTreeNode:
         self.right = -1
         self.parent = -1
 
-cdef class BinaryTree:
+
+cdef class CyBinaryTree:
     cdef int root_idx
     cdef object tree
     cdef int size
@@ -38,7 +41,8 @@ cdef class BinaryTree:
                 all_data.append(self.tree[i].data)
         return str(all_data)
 
-cdef class BinarySearchTree(BinaryTree):
+
+cdef class CyBinarySearchTree(CyBinaryTree):
     def insert(self, val):
         cdef int curr_idx
         curr_idx = self.search(val)
@@ -71,8 +75,6 @@ cdef class BinarySearchTree(BinaryTree):
                     break
                 curr_idx = self.tree[curr_idx].right
 
-        return self
-
     def search(self, val):
         cdef int curr_idx
         curr_idx = self.root_idx
@@ -89,7 +91,6 @@ cdef class BinarySearchTree(BinaryTree):
 
     def delete(self, val):
         cdef int curr_idx, succ, succ_parent, child
-        cdef object new_indices, root_data
 
         curr_idx = self.search(val)
         if curr_idx == -1:
@@ -103,10 +104,7 @@ cdef class BinarySearchTree(BinaryTree):
                     self.tree[self.tree[curr_idx].parent].left = -1
                 else:
                     self.tree[self.tree[curr_idx].parent].right = -1
-                new_indices = self.tree.delete(curr_idx)
-                # if new_indices is not None:
-                #     root_data = self.tree[self.root_idx].data
-                #     self.root_idx = new_indices[root_data]
+                self.tree.delete(curr_idx)
 
         elif self.tree[curr_idx].left != -1 and self.tree[curr_idx].right != -1:
             succ = self.tree[curr_idx].right
@@ -114,6 +112,7 @@ cdef class BinarySearchTree(BinaryTree):
             while self.tree[succ].left != -1:
                 succ_parent = succ
                 succ = self.tree[succ].left
+            self.tree[curr_idx].data = self.tree[succ].data
             if succ != self.root_idx:
                 self.tree[succ_parent].left = self.tree[succ].right
             else:
@@ -121,10 +120,7 @@ cdef class BinarySearchTree(BinaryTree):
             if self.tree[succ].right != -1:
                 self.tree[self.tree[succ].right].parent = succ_parent
             if succ != -1:
-                # root_data = self.tree[self.root_idx].data
-                new_indices = self.tree.delete(succ)
-                # if new_indices is not None:
-                #     self.root_idx = new_indices[root_data]
+                self.tree.delete(succ)
 
         else:
             if self.tree[curr_idx].left != -1:
@@ -136,19 +132,35 @@ cdef class BinarySearchTree(BinaryTree):
                 self.tree[self.root_idx].right = self.tree[child].right
                 self.tree[self.root_idx].data = self.tree[child].data
                 self.tree[self.root_idx].parent = -1
-                root_data = self.tree[self.root_idx].data
-                new_indices = self.tree.delete(child)
-                if new_indices is not None:
-                    self.root_idx = new_indices[root_data]
+                self.tree.delete(child)
             else:
                 if self.tree[self.tree[curr_idx].parent].left == curr_idx:
                     self.tree[self.tree[curr_idx].parent].left = child
                 else:
                     self.tree[self.tree[curr_idx].parent].right = child
                 self.tree[child].parent = self.tree[curr_idx].parent
-                # root_data = self.tree[self.root_idx].data
-                new_indices = self.tree.delete(curr_idx)
-                # if new_indices is not None:
-                #     self.tree[curr_idx].parent = new_indices
-            
-        return self
+                self.tree.delete(curr_idx)
+
+
+cdef class CyBinaryTreeTraversal:
+    cdef CyBinaryTree tree
+
+    def __init__(self, tree):
+        self.tree = tree
+    
+    def _in_order(self):
+        cdef int size, node
+        visit = []
+        size = self.tree.size
+        node = self.tree.root_idx
+        st = ArrayStack(int, 0, [])
+        while not st.is_empty() or node != -1:
+            if node != -1:
+                st.push(node)
+                node = self.tree.tree[node].left
+            else:
+                node = st.pop(node)
+                visit.append(self.tree.tree[node].data)
+                node = self.tree.tree[node].right
+        return visit
+
