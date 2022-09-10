@@ -1,6 +1,7 @@
 from . import c_array
 from typing import Any
 
+
 class OneDArray:
     """
     One dimensional array class. Creates C-contigous
@@ -41,6 +42,7 @@ class OneDArray:
 
     def fill(self, value: Any) -> None:
         self.array.fill(value)
+
 
 class DynamicOneDArray(OneDArray):
     def __init__(self, dtype, *args, **kwargs):

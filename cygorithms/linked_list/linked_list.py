@@ -9,6 +9,7 @@ from .cy_linked_list import (
     CyDoubleCircularLinkedList
 )
 
+
 class BaseLinkedList(ABC):
     """
     ABC for Linked lists.
@@ -109,10 +110,11 @@ class BaseLinkedList(ABC):
         self.list.insert_after(index, val)
         return self
 
+
 class SingleLinkedList(BaseLinkedList):
     """
     Single linked list of python objects:
-    
+
     ``begin`` -> ... -> ``end``
 
     requires less memory then Double linked memory,
@@ -125,7 +127,7 @@ class SingleLinkedList(BaseLinkedList):
     """
     def __init__(self, *args):
         super().__init__(CyLinkedList, args)
-    
+
     def _check_index(self, index):
         if (-len(self.list) <= index < 0):
             return index + len(self.list)
@@ -136,6 +138,7 @@ class SingleLinkedList(BaseLinkedList):
                 f"`index` must be in [0, {len(self.list)}),"
                 f" got {index}."
             )
+
 
 class SingleCircularLinkedList(BaseLinkedList):
     """
@@ -159,6 +162,7 @@ class SingleCircularLinkedList(BaseLinkedList):
             return index - len(self.list) * (index // len(self.list))
         else:
             return index
+
 
 class DoubleLinkedList(BaseLinkedList):
     """
@@ -188,6 +192,7 @@ class DoubleLinkedList(BaseLinkedList):
                 f" got {index}."
             )
 
+
 class DoubleCircularLinkedList(BaseLinkedList):
     """
     Double circular linked list of python objects:
@@ -204,7 +209,7 @@ class DoubleCircularLinkedList(BaseLinkedList):
     """
     def __init__(self, *args):
         super().__init__(CyDoubleCircularLinkedList, args)
-    
+
     def _check_index(self, index):
         if index < 0:
             return index - len(self.list) * (index // len(self.list))
