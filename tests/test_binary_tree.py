@@ -30,7 +30,7 @@ def test_binary_tree():
     bst.insert(0)
     bst.insert(1)
     bst.insert(-1)
-    
+
     assert bst.search(1)
     assert bst.search(0)
     assert bst.search(3)
