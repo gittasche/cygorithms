@@ -21,6 +21,11 @@ class BinaryTree:
         val: Any,
         comp: Callable = lambda u, v: u < v
     ):
+        if not hasattr(comp, "__call__"):
+            raise TypeError(
+                "`comp` must be callable,"
+                f" got `comp` of type {type(comp).__name__}"
+            )
         self.tree = tree_type(val, comp)
 
     def __str__(self) -> str:

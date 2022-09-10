@@ -86,7 +86,6 @@ if __name__ == "__main__":
     bst.insert(-1)
     
     btt = BinaryTreeTraversal(bst)
-    print(btt.depth_first_search(order="post_order"))
     # bt.insert(2)
     # bt.insert(-1)
     # bt.insert(3)
