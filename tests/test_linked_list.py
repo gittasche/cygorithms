@@ -38,7 +38,13 @@ def test_linked_list(list_type):
     assert lst.addleft([-1, -1]).addleft([-2, -2])[1] == [-1, -1]
 
     lst = list_type([1, 2, 3], [1, 2], [1])
-    assert lst.addleft([-1, -1]).addleft([-2, -2]).insert_after(0, [0, 0]).popleft()[0] == [0, 0]
+    assert (
+        lst
+        .addleft([-1, -1])
+        .addleft([-2, -2])
+        .insert_after(0, [0, 0])
+        .popleft()[0] == [0, 0]
+    )
 
     lst = list_type([1, 2, 3], [1, 2], [1])
     assert lst.popright().popleft().insert_after(0, [0, 0])[0] == [1, 2]

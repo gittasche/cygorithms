@@ -91,6 +91,6 @@ def test_arrays_algs(array_type, sort_alg, dtype, container, comp):
         sorted_container = sorted(container)[::-1]
 
     sort_alg(arr, comp=comp)
-    
+
     for el, check in zip(sorted_container, arr):
         assert el == check
