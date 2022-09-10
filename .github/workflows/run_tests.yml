@@ -7,7 +7,7 @@ on:
     branches: [ master, dev ]
   
 jobs:
-  tests:
+  test-ubuntu:
 
     runs-on: ubuntu-latest
     strategy:
@@ -16,11 +16,45 @@ jobs:
         python-version: [ "3.9", "3.10" ]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+    - name: Install packages
+      run: bash build_tools/build_source.sh
+    - name: Lint with flake8
+      run: |
+        python -m pip install flake8
+        flake8 . --count --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --statistics
+    - name: Run tests
+      run: bash build_tools/build_tests.sh
+
+  test-windows:
+
+    runs-on: windows-latest
+    strategy:
+      max-parallel: 5
+      matrix:
+        python-version: [ "3.9", "3.10" ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Setup conda
+      uses: s-weigand/setup-conda@v1
+      with:
+        update-conda: true
+        python-version: ${{ matrix.python-version }}
+        conda-channels: anaconda, conda-forge
+    - run: conda --version
+    - run: which python
     - name: Upgrade pip
       run: python -m pip install --upgrade pip
     - name: Install packages
