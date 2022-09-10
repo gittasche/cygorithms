@@ -48,7 +48,9 @@ def get_linked_list_ext():
 
 def get_trees_ext():
     trees_name = ".".join([__name__, "trees", "cy_trees"])
-    trees_sources = ["/".join([__name__, "trees", "cy_trees_src", "cy_binary_tree.pyx"])]
+    trees_sources = [
+        "/".join([__name__, "trees", "cy_trees_src", "cy_binary_tree.pyx"])
+    ]
 
     trees_ext = Extension(
         name=trees_name,
