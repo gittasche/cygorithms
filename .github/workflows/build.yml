@@ -7,7 +7,7 @@ on:
     branches: [ main, dev ]
   
 jobs:
-  test-ubuntu:
+  build-ubuntu:
 
     runs-on: ubuntu-latest
     strategy:
@@ -33,7 +33,7 @@ jobs:
     - name: Run tests
       run: bash build_tools/build_tests_ubuntu.sh
 
-  test-windows:
+  build-windows:
 
     runs-on: windows-latest
     strategy:

@@ -93,7 +93,7 @@ setup(
     ],
     author="gittasche",
     python_requires=">=3.9",
-    install_requires=["Cython>=0.29.32"],
+    setup_requires=["Cython>=0.29.32"],
     packages=find_packages(),
     ext_modules=cythonize(extensions),
     include_package_data=True,
