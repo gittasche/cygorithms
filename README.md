@@ -1,7 +1,7 @@
 CYgorithms
 ==========
 
-[![Build Status](https://github.com/gittasche/cygorithms/actions/workflows/run_tests.yml/badge.svg)](https://github.com/gittasche/cygorithms/actions)
+[![Build Status](https://github.com/gittasche/cygorithms/actions/workflows/build.yml/badge.svg)](https://github.com/gittasche/cygorithms/actions)
 
 About
 -----
