@@ -5,6 +5,7 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
+from cygorithms.arrays import Queue
 from cygorithms.arrays import Stack
 # from cygorithms.arrays.c_array import ArrayStack
 # from cygorithms.trees.cy_trees import BinarySearchTree, BinaryTreeTraversal
@@ -76,16 +77,16 @@ if __name__ == "__main__":
     # print(st.is_empty())
     # st = Stack(int, 0, [])
     # print(st.is_empty())
-    bst = BinarySearchTree()
-    bst.insert(2)
-    bst.insert(4)
-    bst.insert(3)
-    bst.insert(5)
-    bst.insert(0)
-    bst.insert(1)
-    bst.insert(-1)
+    # bst = BinarySearchTree()
+    # bst.insert(2)
+    # bst.insert(4)
+    # bst.insert(3)
+    # bst.insert(5)
+    # bst.insert(0)
+    # bst.insert(1)
+    # bst.insert(-1)
     
-    btt = BinaryTreeTraversal(bst)
+    # btt = BinaryTreeTraversal(bst)
     # bt.insert(2)
     # bt.insert(-1)
     # bt.insert(3)
@@ -93,3 +94,9 @@ if __name__ == "__main__":
     # # bt.delete(2)
     # btt = BinaryTreeTraversal(bt)
     # print(btt.depth_first_search(order="post_order"))
+
+    qu = Queue(int, [1, 2, 3, 4, 5])
+    print(qu.pop())
+    print(qu.peek())
+    qu.push(1)
+    print(qu.peek())

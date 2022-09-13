@@ -1,5 +1,5 @@
-#ifndef CYGORITHMS_STACK_H
-#define CYGORITHMS_STACK_H
+#ifndef CYGORITHMS_QUEUE_H
+#define CYGORITHMS_QUEUE_H
 
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
@@ -11,29 +11,30 @@
 
 typedef struct {
     PyObject_HEAD
-    DynamicOneDArray* _data;
-} ArrayStack;
+    size_t _first_pos_filled;
+    DynamicOneDArray *_data;
+} ArrayQueue;
 
-static void ArrayStack_dealloc(ArrayStack *self)
+static void ArrayQueue_dealloc(ArrayQueue *self)
 {
     DynamicOneDArray_dealloc(self->_data);
     Py_TYPE(self)->tp_free((PyObject*)self);
 }
 
-static PyObject* ArrayStack___new__(PyTypeObject* type, PyObject *args, PyObject *kwds)
+static PyObject* ArrayQueue___new__(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
-    ArrayStack *self;
-    self = (ArrayStack*)type->tp_alloc(type, 0);
+    ArrayQueue *self;
+    self = (ArrayQueue*)type->tp_alloc(type, 0);
     PyObject *_one_d_array = DynamicOneDArray___new__(&DynamicOneDArrayType, args, kwds);
     if (!_one_d_array)
         return NULL;
 
     self->_data = (DynamicOneDArray*)_one_d_array;
-
+    self->_first_pos_filled = 0;
     return (PyObject*)self;
 }
 
-static PyObject* ArrayStack_is_empty(ArrayStack *self)
+static PyObject* ArrayQueue_is_empty(ArrayQueue *self)
 {
     bool is_empty = self->_data->_last_pos_filled == -1;
 
@@ -43,12 +44,12 @@ static PyObject* ArrayStack_is_empty(ArrayStack *self)
     Py_RETURN_FALSE;
 }
 
-static Py_ssize_t ArrayStack___len__(ArrayStack *self)
+static Py_ssize_t ArrayQueue___len__(ArrayQueue *self)
 {
     return DynamicOneDArray___len__(self->_data);
 }
 
-static PyObject* ArrayStack_push(ArrayStack *self, PyObject *args)
+static PyObject* ArrayQueue_push(ArrayQueue *self, PyObject *args)
 {
     size_t len_args = PyObject_Length(args);
     if (len_args != 1)
@@ -59,7 +60,7 @@ static PyObject* ArrayStack_push(ArrayStack *self, PyObject *args)
         );
     }
 
-    if (PyObject_IsTrue(ArrayStack_is_empty(self)))
+    if (PyObject_IsTrue(ArrayQueue_is_empty(self)))
     {
         self->_data->_one_d_array->_dtype = (PyObject*)Py_TYPE(PyObject_GetItem(args, PyLong_FromLong(0)));
     }
@@ -73,42 +74,47 @@ static PyObject* ArrayStack_push(ArrayStack *self, PyObject *args)
     Py_RETURN_NONE;
 }
 
-static PyObject *ArrayStack_pop(ArrayStack *self)
+static PyObject *ArrayQueue_pop(ArrayQueue *self)
 {
-    if (PyObject_IsTrue(ArrayStack_is_empty(self)))
+    if (PyObject_IsTrue(ArrayQueue_is_empty(self)))
     {
-        PyErr_SetString(PyExc_IndexError, "ArrayStack is empty.");
+        PyErr_SetString(PyExc_IndexError, "ArrayQueue is empty.");
         return NULL;
     }
 
-    PyObject *top_element = DynamicOneDArray___getitem__(self->_data, PyLong_FromLong(self->_data->_last_pos_filled));
-    PyObject *last_pos_arg = PyTuple_Pack(1, PyLong_FromLong(self->_data->_last_pos_filled));
+    size_t old_size = self->_data->_size;
+    PyObject *first_element = DynamicOneDArray___getitem__(self->_data, PyLong_FromLong(self->_first_pos_filled));
+    PyObject *last_pos_arg = PyTuple_Pack(1, PyLong_FromLong(self->_first_pos_filled));
     DynamicOneDArray_delete(self->_data, last_pos_arg);
-    return top_element;
+    if (self->_data->_size != old_size)
+        self->_first_pos_filled = 0;
+    else
+        self->_first_pos_filled++;
+    return first_element;
 }
 
-static PyObject *ArrayStack_peek(ArrayStack *self, void *closure)
+static PyObject *ArrayQueue_peek(ArrayQueue *self, void *closure)
 {
-    return DynamicOneDArray___getitem__(self->_data, PyLong_FromSize_t(self->_data->_last_pos_filled));
+    return DynamicOneDArray___getitem__(self->_data, PyLong_FromSize_t(self->_first_pos_filled));
 }
 
-static struct PyMethodDef ArrayStack_PyMethodDef[] = {
-    {"is_empty", (PyCFunction)ArrayStack_is_empty, METH_VARARGS, NULL},
-    {"push", (PyCFunction)ArrayStack_push, METH_VARARGS, NULL},
-    {"pop", (PyCFunction)ArrayStack_pop, METH_VARARGS, NULL},
-    {"peek", (PyCFunction)ArrayStack_peek, METH_VARARGS, NULL},
+static struct PyMethodDef ArrayQueue_PyMethodDef[] = {
+    {"is_empty", (PyCFunction)ArrayQueue_is_empty, METH_VARARGS, NULL},
+    {"push", (PyCFunction)ArrayQueue_push, METH_VARARGS, NULL},
+    {"pop", (PyCFunction)ArrayQueue_pop, METH_VARARGS, NULL},
+    {"peek", (PyCFunction)ArrayQueue_peek, METH_VARARGS, NULL},
     {NULL}
 };
 
-static PyMappingMethods ArrayStack_PyMappingMethods = {
-    (lenfunc)ArrayStack___len__,
+static PyMappingMethods ArrayQueue_PyMappingMethods = {
+    (lenfunc)ArrayQueue___len__,
 };
 
-static PyTypeObject ArrayStackType = {
-    /* tp_name */ PyVarObject_HEAD_INIT(NULL, 0) "ArrayStack",
-    /* tp_basicsize */ sizeof(ArrayStack),
+static PyTypeObject ArrayQueueType = {
+    /* tp_name */ PyVarObject_HEAD_INIT(NULL, 0) "ArrayQueue",
+    /* tp_basicsize */ sizeof(ArrayQueue),
     /* tp_itemsize */ 0,
-    /* tp_dealloc */ (destructor)ArrayStack_dealloc,
+    /* tp_dealloc */ (destructor)ArrayQueue_dealloc,
     /* tp_print */ 0,
     /* tp_getattr */ 0,
     /* tp_setattr */ 0,
@@ -116,7 +122,7 @@ static PyTypeObject ArrayStackType = {
     /* tp_repr */ 0,
     /* tp_as_number */ 0,
     /* tp_as_sequence */ 0,
-    /* tp_as_mapping */ &ArrayStack_PyMappingMethods,
+    /* tp_as_mapping */ &ArrayQueue_PyMappingMethods,
     /* tp_hash  */ 0,
     /* tp_call */ 0,
     /* tp_str */ 0,
@@ -131,7 +137,7 @@ static PyTypeObject ArrayStackType = {
     /* tp_weaklistoffset */ 0,
     /* tp_iter */ 0,
     /* tp_iternext */ 0,
-    /* tp_methods */ ArrayStack_PyMethodDef,
+    /* tp_methods */ ArrayQueue_PyMethodDef,
     /* tp_members */ 0,
     /* tp_getset */ 0,
     /* tp_base */ 0,
@@ -141,7 +147,7 @@ static PyTypeObject ArrayStackType = {
     /* tp_dictoffset */ 0,
     /* tp_init */ 0,
     /* tp_alloc */ 0,
-    /* tp_new */ ArrayStack___new__,
+    /* tp_new */ ArrayQueue___new__,
 };
 
-#endif // CYGORITHMS_STACK_H
+#endif // CYGORITHMS_QUEUE_H
