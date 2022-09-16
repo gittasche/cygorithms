@@ -4,11 +4,12 @@ import os.path
 
 
 curr_dir = os.path.abspath(os.path.dirname(os.path.expanduser(__file__)))
+rel_lib_path = "../../cygorithms_ctypes/build/Debug/cygorithms_ctypes"
 if sys.platform == "win32":
     kmp_extension = ".dll"
 elif sys.platform.startswith("Linux"):
     kmp_extension = ".so"
-kmp_path = os.path.join(curr_dir, "../../cygorithms_ctypes/build/Debug/cygorithms_ctypes" + kmp_extension)
+kmp_path = os.path.join(curr_dir, rel_lib_path + kmp_extension)
 kmp_lib = ctypes.cdll.LoadLibrary(kmp_path)
 
 
