@@ -5,6 +5,8 @@ from cygorithms.linked_list.linked_list import (
     DoubleCircularLinkedList
 )
 
+from cygorithms.string import knuth_morris_pratt
+
 from cygorithms.arrays import Queue
 from cygorithms.arrays import Stack
 # from cygorithms.arrays.c_array import ArrayStack
@@ -95,8 +97,12 @@ if __name__ == "__main__":
     # btt = BinaryTreeTraversal(bt)
     # print(btt.depth_first_search(order="post_order"))
 
-    qu = Queue(int, [1, 2, 3, 4, 5])
-    print(qu.pop())
-    print(qu.peek())
-    qu.push(1)
-    print(qu.peek())
+    text = "abcacac"
+    query = "ac"
+    print(knuth_morris_pratt(text, query))
+
+    # qu = Queue(int, [1, 2, 3, 4, 5])
+    # print(qu.pop())
+    # print(qu.peek())
+    # qu.push(1)
+    # print(qu.peek())

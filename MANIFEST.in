@@ -3,3 +3,4 @@ recursive-include cygorithms/trees/cy_trees_src *.pyx
 recursive-include cygorithms/arrays/c_algorithms_src *.c *.h
 recursive-include cygorithms/arrays/c_array_src *.c *.h
 recursive-include cygorithms/arrays/c_util *.h
+recursive-include cygorithms/string/c_algorithms_src *.c *.h

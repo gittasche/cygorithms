@@ -1,11 +1,13 @@
 from cygorithms import (
     linked_list,
     arrays,
-    trees
+    trees,
+    string
 )
 
 __all__ = [
     "linked_list",
     "arrays",
-    "trees"
+    "trees",
+    "string"
 ]

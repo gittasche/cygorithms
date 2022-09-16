@@ -1,7 +1,11 @@
+import subprocess
+import logging
+import os
+from platform import system
 from setuptools import setup, find_packages, Extension
+from setuptools.command import build_ext
 from Cython.Build import cythonize
 from codecs import open
-from os import path
 
 
 __name__ = "cygorithms"
@@ -72,8 +76,46 @@ extensions.extend(get_linked_list_ext())
 extensions.extend(get_trees_ext())
 
 
-here = path.abspath(path.dirname(__file__))
-with open(path.join(here, "README.md"), encoding="utf-8") as f:
+# class CMakeExtension(Extension):
+#     def __init__(self, name, sources):
+#         super().__init__(name=name, sources=[])
+
+
+# class BuildExt(build_ext.build_ext):
+#     logger = logging.getLogger("CYgorithms build_ext")
+
+#     def build(
+#         self,
+#         src_dir,
+#         build_dir,
+#         generator,
+#         build_tool = None
+#     ):
+#         cmake_cmd = ["cmake", src_dir, generator]
+#         self.logger.info(f"Run CMake command: {cmake_cmd}")
+#         subprocess.check_call(cmake_cmd, cwd=build_dir)
+
+#         if system() != "Windows":
+#             subprocess.check_call([build_tool], cwd=build_dir)
+#         else:
+#             subprocess.check_call(["cmake", "--build", ".",
+#                                    "--config", "Release"], cwd=build_dir)
+    
+#     def build_cmake_extension(self):
+#         build_dir = self.build_temp
+#         src_dir = "cygorithms_ctypes"
+        
+#         if not os.path.exists(build_dir):
+#             os.mkdir(build_dir)
+        
+#         if system() == "Windows":
+#             vs = "-GVisual Studio 17 2022"
+#             self.build(src_dir, build_dir, vs)
+
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
