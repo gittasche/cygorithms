@@ -4,6 +4,7 @@
 #include "dynarray.h"
 #include "dynonedarray.h"
 #include "stack.h"
+#include "queue.h"
 
 static struct PyModuleDef array_struct = {
     PyModuleDef_HEAD_INIT,
@@ -52,6 +53,13 @@ PyMODINIT_FUNC PyInit_c_array(void)
     }
     Py_INCREF(&ArrayStackType);
     PyModule_AddObject(c_array, "ArrayStack", (PyObject*)(&ArrayStackType));
+
+    if (PyType_Ready(&ArrayQueueType) < 0)
+    {
+        return NULL;
+    }
+    Py_INCREF(&ArrayQueueType);
+    PyModule_AddObject(c_array, "ArrayQueue", (PyObject*)(&ArrayQueueType));
 
     return c_array;
 }

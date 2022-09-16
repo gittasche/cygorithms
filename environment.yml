@@ -5,5 +5,8 @@ channels:
 dependencies:
   - python 3.9
   - pip
+  - setuptools
+  - flake8
+  - pytest
   - pip:
     - Cython

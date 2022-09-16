@@ -1,7 +1,7 @@
+import os
 from setuptools import setup, find_packages, Extension
 from Cython.Build import cythonize
 from codecs import open
-from os import path
 
 
 __name__ = "cygorithms"
@@ -72,8 +72,8 @@ extensions.extend(get_linked_list_ext())
 extensions.extend(get_trees_ext())
 
 
-here = path.abspath(path.dirname(__file__))
-with open(path.join(here, "README.md"), encoding="utf-8") as f:
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -93,7 +93,7 @@ setup(
     ],
     author="gittasche",
     python_requires=">=3.9",
-    install_requires=["Cython>=0.29.32"],
+    setup_requires=["Cython>=0.29.32"],
     packages=find_packages(),
     ext_modules=cythonize(extensions),
     include_package_data=True,
