@@ -9,6 +9,8 @@ About
 **CYgorithms** is a Python package with implementation of classical algorithms and data
 structures using Cython and C extensions.
 
+This package also is an example of using Cython, Ctypes and Python C API together.
+
 Installation
 ------------
 
@@ -16,7 +18,7 @@ Create Anaconda environment
 
 ```bash
 conda env --file environment.yml
-conda activate cyag-env
+conda activate cyalg-env
 ```
 
 Install package via ``pip``

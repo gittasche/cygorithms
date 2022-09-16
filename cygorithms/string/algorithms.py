@@ -5,9 +5,9 @@ import platform
 
 curr_dir = os.path.abspath(os.path.dirname(os.path.expanduser(__file__)))
 if platform.system() == "Windows":
-    rel_lib_path = "../../cygorithms_ctypes/build/Release/cygorithms_ctypes.dll"
+    rel_lib_path = "../cygorithms_ctypes.dll"
 elif platform.system() == "Linux":
-    rel_lib_path = "../../cygorithms_ctypes/build/libcygorithms_ctypes.so"
+    rel_lib_path = "../libcygorithms_ctypes.so"
 kmp_path = os.path.join(curr_dir, rel_lib_path)
 kmp_lib = ctypes.cdll.LoadLibrary(kmp_path)
 

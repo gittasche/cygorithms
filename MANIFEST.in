@@ -1,6 +1,12 @@
+include README.md
+
 recursive-include cygorithms/linked_list/cy_linked_list_src *.pyx
 recursive-include cygorithms/trees/cy_trees_src *.pyx
 recursive-include cygorithms/arrays/c_algorithms_src *.c *.h
 recursive-include cygorithms/arrays/c_array_src *.c *.h
 recursive-include cygorithms/arrays/c_util *.h
-recursive-include cygorithms/string/c_algorithms_src *.c *.h
+
+recursive-include cygorithms_ctypes/include *.h
+recursive-include cygorithms_ctypes/src *.c
+include cygorithms_ctypes/CMakeLists.txt
+include cygorithms_ctypes/src/CMakeLists.txt

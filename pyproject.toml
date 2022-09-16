@@ -2,7 +2,8 @@
 requires = [
     "setuptools>=63.2.0",
     "wheel",
-    "Cython>=0.29.32"
+    "Cython>=0.29.32",
+    "cmake>=3.14"
 ]
 
 [tool.black]
