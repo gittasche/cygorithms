@@ -49,7 +49,7 @@ class BuildExt(build_ext.build_ext):
             raise OSError(
                 f"CMake source directory {ext_src_dir} not found."
             )
-        
+
         ext_build_dir = os.path.join(ext_src_dir, "build")
 
         self.logger.info(f"Building from source. {ext_lib_name}")
