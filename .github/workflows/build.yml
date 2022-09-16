@@ -26,12 +26,12 @@ jobs:
     - name: Build cmake-extensions
       run: |
         python -m pip install cmake
-        cd cygorithms/cygorithms_ctypes
+        cd cygorithms_ctypes
         mkdir build
         cd build
         cmake ..
         cmake --build .
-        cd ../../../
+        cd ../../
     - name: Install packages
       run: bash build_tools/build_source_ubuntu.sh
     - name: Lint with flake8
