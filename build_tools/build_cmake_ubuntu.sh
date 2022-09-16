@@ -7,6 +7,6 @@ cd cygorithms_ctypes
 mkdir build
 cd build
 cmake .. -DBUILD_STATIC_LIB=OFF -GNinja
-ninja -v install
+cmake --build .
 
 cd ../../
