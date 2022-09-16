@@ -31,6 +31,7 @@ jobs:
         cd build
         cmake ..
         cmake --build .
+        ls
         cd ../../
     - name: Install packages
       run: bash build_tools/build_source_ubuntu.sh
