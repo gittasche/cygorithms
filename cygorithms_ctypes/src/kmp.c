@@ -36,7 +36,6 @@ int* do_match(int *num_positions, const char *text, size_t text_len, const char 
 {
     int j = 0, k = 0;
     int *positions, *safe_buffer;
-    size_t positions_size, curr_idx;
     if ((positions = (int*)malloc(0)) == NULL)
         exit(1);
 
@@ -48,16 +47,14 @@ int* do_match(int *num_positions, const char *text, size_t text_len, const char 
             k++;
             if (k == query_len)
             {
-                positions_size = _msize(positions);
                 safe_buffer = positions;
-                if ((positions = realloc(positions, positions_size + sizeof(int))) == NULL)
+                if ((positions = realloc(positions, (*num_positions + 1) * sizeof(int))) == NULL)
                 {
                     free(safe_buffer);
                     exit(1);
                 }
-                curr_idx = positions_size / sizeof(int);
-                positions[curr_idx] = j - k;
-                *num_positions++;
+                positions[*num_positions] = j - k;
+                (*num_positions)++;
                 k = kmp_table[k];
             }
         }

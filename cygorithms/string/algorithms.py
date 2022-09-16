@@ -60,6 +60,7 @@ def knuth_morris_pratt(text, query):
         c_query_len,
         c_kmp_table
     )
-    positions = [c_positions[i] for i in range(2)]
+    positions = [c_positions[i] for i in range(c_num_positions.value)]
+    kmp_free(c_positions, c_kmp_table)
 
     return positions
