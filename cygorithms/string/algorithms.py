@@ -8,7 +8,7 @@ rel_lib_path = "../../cygorithms_ctypes/build/Debug/cygorithms_ctypes"
 if platform.system() == "Windows":
     rel_lib_path = "../../cygorithms_ctypes/build/Debug/cygorithms_ctypes.dll"
 elif platform.system() == "Linux":
-    rel_lib_path = "../../cygorithms_ctypes/build/lib.cygorithms_ctypes.so"
+    rel_lib_path = "../../cygorithms_ctypes/build/libcygorithms_ctypes.so"
 kmp_path = os.path.join(curr_dir, rel_lib_path)
 kmp_lib = ctypes.cdll.LoadLibrary(kmp_path)
 
