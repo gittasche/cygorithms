@@ -41,7 +41,18 @@ kmp_free.argtypes = [
 ]
 
 
-def knuth_morris_pratt(text, query):
+def knuth_morris_pratt(text: str, query: str):
+    if not isinstance(text, str):
+        raise TypeError(
+            "`text` must be a string instance,"
+            f" got instance of type {type(text).__name__}"
+        )
+    if not isinstance(query, str):
+        raise TypeError(
+            "`query` must be a string instance,"
+            f" got instance of type {type(query).__name__}"
+        )
+
     if len(text) == 0 or len(query) == 0:
         return []
 
