@@ -99,6 +99,16 @@ class BuildExt(build_ext.build_ext):
         subprocess.run(cmake_build_cmd)
         os.chdir(CURR_DIR)
 
+    def copy_extensions_to_source(self):
+        # copy to source only no CMake extensions
+        no_cmake_extensions = []
+        for ext in self.extensions:
+            if isinstance(ext, CMakeExtension):
+                continue
+            no_cmake_extensions.append(ext)
+        self.extensions = no_cmake_extensions
+        super().copy_extensions_to_source()
+
 
 class InstallLib(install_lib.install_lib):
     logger = logging.getLogger("CYgorithms install_lib")
