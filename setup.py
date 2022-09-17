@@ -7,6 +7,7 @@ from Cython.Build import cythonize
 from codecs import open
 from setuptools.command import build_ext, install_lib
 from platform import system
+from typing import List
 
 
 __name__ = "cygorithms"
@@ -15,7 +16,7 @@ __version__ = "0.0.1"
 CURR_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
-def lib_name():
+def lib_name() -> str:
     if system() == "Windows":
         name = "cygorithms_ctypes.dll"
     elif system() == "Linux":
@@ -24,20 +25,20 @@ def lib_name():
 
 
 class CMakeExtension(Extension):
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         super().__init__(name=name, sources=[])
 
 
 class BuildExt(build_ext.build_ext):
     logger = logging.getLogger("CYgorithms build_ext")
 
-    def build_extension(self, ext):
+    def build_extension(self, ext: Extension) -> None:
         if isinstance(ext, CMakeExtension):
             self.build_cmake_extension()
         else:
             super().build_extension(ext)
 
-    def build_cmake_extension(self):
+    def build_cmake_extension(self) -> None:
         ext_lib_name = lib_name()
 
         lib_package_path = os.path.join(CURR_DIR, __name__, ext_lib_name)
@@ -64,7 +65,7 @@ class BuildExt(build_ext.build_ext):
         lib_dst_path = os.path.join(CURR_DIR, __name__)
         shutil.copy(lib_path, lib_dst_path)
 
-    def build(self, src_dir, build_dir):
+    def build(self, src_dir: str, build_dir: str) -> None:
         if system() == "Windows":
             cmake_cmd = [
                 "cmake",
@@ -94,10 +95,8 @@ class BuildExt(build_ext.build_ext):
                 build_dir
             ]
 
-        os.chdir(build_dir)
-        subprocess.run(cmake_cmd)
-        subprocess.run(cmake_build_cmd)
-        os.chdir(CURR_DIR)
+        subprocess.check_call(cmake_cmd, cwd=build_dir)
+        subprocess.check_call(cmake_build_cmd, cwd=build_dir)
 
     def copy_extensions_to_source(self):
         # copy to source only no CMake extensions
@@ -113,7 +112,7 @@ class BuildExt(build_ext.build_ext):
 class InstallLib(install_lib.install_lib):
     logger = logging.getLogger("CYgorithms install_lib")
 
-    def install(self):
+    def install(self) -> List[str]:
         outfiles = super().install()
 
         dst = os.path.join(self.install_dir, __name__, lib_name())
@@ -124,7 +123,7 @@ class InstallLib(install_lib.install_lib):
         return outfiles
 
 
-def get_array_ext():
+def get_array_ext() -> List[Extension]:
     array_name = ".".join([__name__, "arrays", "c_array"])
     array_sources = [
         "/".join([__name__, "arrays", "c_array_src", "array.c"])
@@ -150,7 +149,7 @@ def get_array_ext():
     return array_ext_full
 
 
-def get_linked_list_ext():
+def get_linked_list_ext() -> List[Extension]:
     linked_list_name = ".".join([__name__, "linked_list", "cy_linked_list"])
     linked_list_sources = [
         "/".join([__name__, "linked_list", "cy_linked_list_src", "cy_linked_list.pyx"])
@@ -166,7 +165,7 @@ def get_linked_list_ext():
     return linked_list_ext_full
 
 
-def get_trees_ext():
+def get_trees_ext() -> List[Extension]:
     trees_name = ".".join([__name__, "trees", "cy_trees"])
     trees_sources = [
         "/".join([__name__, "trees", "cy_trees_src", "cy_binary_tree.pyx"])
@@ -182,7 +181,7 @@ def get_trees_ext():
     return trees_ext_full
 
 
-def get_cmake_ext():
+def get_cmake_ext() -> List[CMakeExtension]:
     cmake_ext_name = "cygorithms_ctypes"
 
     cmake_ext = CMakeExtension(
@@ -200,15 +199,14 @@ extensions.extend(get_trees_ext())
 extensions.extend(get_cmake_ext())
 
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+with open(os.path.join(CURR_DIR, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
 setup(
     name=__name__,
     version=__version__,
-    description="Algorithms written on Cython",
+    description="Python wrapper for algorithms on Cython/C",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
