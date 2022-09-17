@@ -98,7 +98,7 @@ class BuildExt(build_ext.build_ext):
         subprocess.check_call(cmake_cmd, cwd=build_dir)
         subprocess.check_call(cmake_build_cmd, cwd=build_dir)
 
-    def copy_extensions_to_source(self):
+    def copy_extensions_to_source(self) -> None:
         # copy to source only no CMake extensions
         no_cmake_extensions = []
         for ext in self.extensions:
