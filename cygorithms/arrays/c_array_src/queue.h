@@ -9,6 +9,8 @@
 #include "dynonedarray.h"
 #include "../c_util/util.h"
 
+#include <stdio.h>
+
 typedef struct {
     PyObject_HEAD
     size_t _first_pos_filled;
@@ -63,6 +65,7 @@ static PyObject* ArrayQueue_push(ArrayQueue *self, PyObject *args)
     if (PyObject_IsTrue(ArrayQueue_is_empty(self)))
     {
         self->_data->_one_d_array->_dtype = (PyObject*)Py_TYPE(PyObject_GetItem(args, PyLong_FromLong(0)));
+        self->_first_pos_filled = 0;
     }
     else
     {

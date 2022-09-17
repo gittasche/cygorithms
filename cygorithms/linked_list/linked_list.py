@@ -14,7 +14,7 @@ class BaseLinkedList(ABC):
     """
     ABC for Linked lists.
     """
-    def __init__(self, list_type, args):
+    def __init__(self, list_type, args) -> None:
         self.list = list_type()
         for arg in args:
             self.list.addright(arg)
@@ -26,7 +26,7 @@ class BaseLinkedList(ABC):
         return self.list.__str__()
 
     @abstractmethod
-    def _check_index(self, index):
+    def _check_index(self, index: int) -> int:
         raise NotImplementedError()
 
     def __setitem__(self, index: int) -> None:
@@ -125,10 +125,10 @@ class SingleLinkedList(BaseLinkedList):
     args : Any arguments
         python objects to insert with initialization
     """
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super().__init__(CyLinkedList, args)
 
-    def _check_index(self, index):
+    def _check_index(self, index: int) -> int:
         if (-len(self.list) <= index < 0):
             return index + len(self.list)
         elif (0 <= index < len(self.list)):
@@ -154,10 +154,10 @@ class SingleCircularLinkedList(BaseLinkedList):
     args : Any arguments
         python objects to insert with initialization
     """
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super().__init__(CyCircularLinkedList, args)
 
-    def _check_index(self, index):
+    def _check_index(self, index: int) -> int:
         if index < 0:
             return index - len(self.list) * (index // len(self.list))
         else:
@@ -178,10 +178,10 @@ class DoubleLinkedList(BaseLinkedList):
     args : Any arguments
         python objects to insert with initialization
     """
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super().__init__(CyDoubleLinkedList, args)
 
-    def _check_index(self, index):
+    def _check_index(self, index: int) -> int:
         if (-len(self.list) <= index < 0):
             return index + len(self.list)
         elif (0 <= index < len(self.list)):
@@ -207,10 +207,10 @@ class DoubleCircularLinkedList(BaseLinkedList):
     args : Any arguments
         python objects to insert with initialization
     """
-    def __init__(self, *args):
+    def __init__(self, *args) -> None:
         super().__init__(CyDoubleCircularLinkedList, args)
 
-    def _check_index(self, index):
+    def _check_index(self, index: int) -> int:
         if index < 0:
             return index - len(self.list) * (index // len(self.list))
         else:

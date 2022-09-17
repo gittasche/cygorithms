@@ -1,6 +1,6 @@
 import cython
 from cygorithms.arrays.c_array import DynamicOneDArray, OneDArray
-from cygorithms.arrays.c_array import ArrayStack
+from cygorithms.arrays.c_array import ArrayStack, ArrayQueue
 
 
 cdef class CyTreeNode:
@@ -38,6 +38,7 @@ cdef class CyBinaryTree:
     @cython.nonecheck(False)
     def __str__(self):
         cdef int i
+
         all_data = []
         for i in range(self.tree._last_pos_filled + 1):
             if self.tree[i] is not None:
@@ -51,6 +52,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
     
     def insert(self, val):
         cdef int curr_idx
+
         curr_idx = self.search(val)
         if curr_idx != -1:
             return
@@ -83,6 +85,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
 
     def search(self, val):
         cdef int curr_idx
+
         curr_idx = self.root_idx
         if self.tree[curr_idx].data is None:
             return -1
@@ -157,6 +160,7 @@ cdef class CyBinaryTreeTraversal:
     def _in_order(self):
         cdef object st
         cdef int node
+
         visit = []
         node = self.tree.root_idx
         st = ArrayStack(int, 0, [])
@@ -173,6 +177,7 @@ cdef class CyBinaryTreeTraversal:
     def _pre_order(self):
         cdef object st
         cdef int node
+
         visit = []
         node = self.tree.root_idx
         st = ArrayStack(int, 1, [node])
@@ -188,6 +193,7 @@ cdef class CyBinaryTreeTraversal:
     def _post_order(self):
         cdef object st, last
         cdef int node, l, r
+
         visit = []
         node = self.tree.root_idx
         st = ArrayStack(int, 1, [node])
@@ -206,4 +212,19 @@ cdef class CyBinaryTreeTraversal:
                 st.push(r)
             if not (l == -1 or last[l]):
                 st.push(l)
+        return visit
+
+    def breadth_first_search(self):
+        cdef object qu
+        cdef int node
+        node = self.tree.root_idx
+        visit = []
+        qu = ArrayQueue(int, 1, [node])
+        while not qu.is_empty():
+            node = qu.pop()
+            visit.append(self.tree.tree[node].data)
+            if self.tree.tree[node].left != -1:
+                qu.push(self.tree.tree[node].left)
+            if self.tree.tree[node].right != -1:
+                qu.push(self.tree.tree[node].right)
         return visit
