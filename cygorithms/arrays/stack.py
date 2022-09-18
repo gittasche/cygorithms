@@ -3,6 +3,7 @@ from typing import (
     Any,
     Type,
     Optional,
+    Union,
     List,
     Tuple
 )
@@ -13,7 +14,7 @@ class Stack:
         self,
         dtype: Type,
         size: Optional[int] = None,
-        data: None | List[Any] | Tuple[Any] = None
+        data: Optional[Union[List[Any], Tuple[Any]]] = None
     ) -> None:
         if size is None and data is None:
             args = (0, [])
