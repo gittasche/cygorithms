@@ -17,7 +17,7 @@ from cygorithms.arrays import Queue
     ]
 )
 def test_arrays_queue(dtype, container):
-    qu = Queue(dtype, container)
+    qu = Queue(dtype, data=container)
 
     assert qu.peek() == container[0]
 

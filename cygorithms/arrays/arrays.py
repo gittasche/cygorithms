@@ -53,6 +53,11 @@ class DynamicOneDArray(OneDArray):
     """
     Dynamic one dimensional array. Creates C-contigous array
     of python dtype with automatically size expanding and shrinking.
+
+    Parameters
+    ----------
+    dtype : python type
+        data type of array elements
     """
     def __init__(self, dtype, *args, **kwargs) -> None:
         self.array = c_array.DynamicOneDArray(dtype, *args, **kwargs)

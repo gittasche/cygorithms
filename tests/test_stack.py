@@ -17,7 +17,7 @@ from cygorithms.arrays import Stack
     ]
 )
 def test_arrays_stack(dtype, container):
-    st = Stack(dtype, container)
+    st = Stack(dtype, data=container)
 
     assert st.peek() == container[-1]
 
