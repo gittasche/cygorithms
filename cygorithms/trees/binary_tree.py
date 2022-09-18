@@ -69,3 +69,6 @@ class BinaryTreeTraversal:
                 "Got unknown order."
             )
         return getattr(self.proc, "_" + order)()
+
+    def breadth_first_search(self) -> List[Any]:
+        return self.proc.breadth_first_search()

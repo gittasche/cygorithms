@@ -52,23 +52,31 @@ def test_binary_tree():
 
 
 @pytest.mark.parametrize(
-    "order, check_dfs",
+    "strategy, order, check",
     [
         (
+            "depth_first_search",
             "in_order",
             [-1, 0, 1, 2, 3, 4, 5]
         ),
         (
+            "depth_first_search",
             "pre_order",
             [2, 0, -1, 1, 4, 3, 5]
         ),
         (
+            "depth_first_search",
             "post_order",
             [-1, 1, 0, 3, 5, 4, 2]
+        ),
+        (
+            "breadth_first_search",
+            None,
+            [2, 0, 4, -1, 1, 3, 5]
         )
     ]
 )
-def test_binary_tree_traversal(order, check_dfs):
+def test_binary_tree_traversal(strategy, order, check):
     bst = BinarySearchTree()
 
     # build binary search tree
@@ -86,4 +94,5 @@ def test_binary_tree_traversal(order, check_dfs):
     bst.insert(-1)
 
     btt = BinaryTreeTraversal(bst)
-    assert btt.depth_first_search(order=order) == check_dfs
+    args = (order,) if order is not None else ()
+    assert getattr(btt, strategy)(*args) == check

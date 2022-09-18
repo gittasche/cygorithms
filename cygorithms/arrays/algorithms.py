@@ -11,6 +11,27 @@ def selection_sort(
     begin: Optional[int] = None,
     end: Optional[int] = None
 ) -> OneDArray:
+    """
+    Selection sort algorithm for array.
+
+    Parameters
+    ----------
+    array : OneDArray instance
+        array to sort
+    comp : callable, optional
+        comprasion function ``comp(u: Any, v: Any) -> bool``,
+        by default ascending sort to be performed, such that
+        ``comp = lambda u, v: u >= v``.
+    begin : int, optional
+        begin of interval to sort, by default ``begin = 0``
+    end : int, optional
+        end of interval to sort, by default ``end = 0``
+
+    Returns
+    -------
+    array : OneDArray instance
+        Array ``array`` sorted inplace in interval ``[begin, end)``
+    """
     kwargs = {}
     if comp is not None:
         if not hasattr(comp, "__call__"):
@@ -49,6 +70,27 @@ def merge_sort(
     begin: Optional[int] = None,
     end: Optional[int] = None
 ) -> OneDArray:
+    """
+    Merge sort algorithm for array.
+
+    Parameters
+    ----------
+    array : OneDArray instance
+        array to sort
+    comp : callable, optional
+        comprasion function ``comp(u: Any, v: Any) -> bool``,
+        by default ascending sort to be performed, such that
+        ``comp = lambda u, v: u >= v``.
+    begin : int, optional
+        begin of interval to sort, by default ``begin = 0``
+    end : int, optional
+        end of interval to sort, by default ``end = 0``
+
+    Returns
+    -------
+    array : OneDArray instance
+        Array ``array`` sorted inplace in interval ``[begin, end)``
+    """
     kwargs = {}
     if comp is not None:
         if not hasattr(comp, "__call__"):
