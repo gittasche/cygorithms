@@ -1,11 +1,14 @@
 #include <Python.h>
 #include "select_sort.h"
 #include "merge_sort.h"
+#include "quick_sort.h"
 
 static PyMethodDef algorithms_PyMethodDef[] = {
     {"selection_sort", (PyCFunction)selection_sort,
      METH_VARARGS | METH_KEYWORDS, ""},
     {"merge_sort", (PyCFunction)merge_sort,
+     METH_VARARGS | METH_KEYWORDS, ""},
+    {"quick_sort", (PyCFunction)quick_sort,
      METH_VARARGS | METH_KEYWORDS, ""},
     {NULL, NULL, 0, NULL}   /* Sentinel */
 };

@@ -13,7 +13,8 @@ from cygorithms.arrays.queue import (
 
 from cygorithms.arrays.algorithms import (
     selection_sort,
-    merge_sort
+    merge_sort,
+    quick_sort
 )
 
 __all__ = [
@@ -22,5 +23,6 @@ __all__ = [
     "Stack",
     "Queue",
     "selection_sort",
-    "merge_sort"
+    "merge_sort",
+    "quick_sort"
 ]

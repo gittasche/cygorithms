@@ -4,7 +4,8 @@ from cygorithms.arrays import (
     OneDArray,
     DynamicOneDArray,
     selection_sort,
-    merge_sort
+    merge_sort,
+    quick_sort
 )
 
 
@@ -60,7 +61,8 @@ def test_arrays(array_type, dtype, container, filler):
     "sort_alg",
     [
         selection_sort,
-        merge_sort
+        merge_sort,
+        quick_sort
     ]
 )
 @pytest.mark.parametrize(
