@@ -3,7 +3,12 @@ from cygorithms.trees.binary_tree import (
     BinaryTreeTraversal
 )
 
+from cygorithms.trees.heap import (
+    BinaryHeap
+)
+
 __all__ = [
     "BinarySearchTree",
-    "BinaryTreeTraversal"
+    "BinaryTreeTraversal",
+    "BinaryHeap"
 ]

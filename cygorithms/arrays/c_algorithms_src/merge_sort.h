@@ -1,5 +1,5 @@
-#ifndef CYGORITHMS_MERGE_SORT
-#define CYGORITHMS_MERGE_SORT
+#ifndef CYGORITHMS_MERGE_SORT_H
+#define CYGORITHMS_MERGE_SORT_H
 
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
@@ -17,6 +17,8 @@ static int merge_impl(PyObject *array, PyObject *comp, size_t bl, size_t el, siz
     size_t n_right = er - br;
     size_t init_left = 0, init_right = 0;
 
+    PyObject *Py_i, *Py_j, *Py_k;
+
     PyObject **array_left = (PyObject**)malloc(n_left * sizeof(PyObject*));
     PyObject **array_right = (PyObject**)malloc(n_right * sizeof(PyObject*));
 
@@ -24,7 +26,7 @@ static int merge_impl(PyObject *array, PyObject *comp, size_t bl, size_t el, siz
     {
         if (i < end)
         {
-            PyObject *Py_i = PyLong_FromSize_t(i);
+            Py_i = PyLong_FromSize_t(i);
             array_left[i - bl] = PyObject_GetItem(array, Py_i);
             init_left++;
         }
@@ -33,7 +35,7 @@ static int merge_impl(PyObject *array, PyObject *comp, size_t bl, size_t el, siz
     {
         if (j < end)
         {
-            PyObject *Py_j = PyLong_FromSize_t(j);
+            Py_j = PyLong_FromSize_t(j);
             array_right[j - br] = PyObject_GetItem(array, Py_j);
             init_right++;
         }
@@ -44,7 +46,7 @@ static int merge_impl(PyObject *array, PyObject *comp, size_t bl, size_t el, siz
     k = bl;
     while (i < init_left && j < init_right)
     {
-        PyObject *Py_k = PyLong_FromSize_t(k);
+        Py_k = PyLong_FromSize_t(k);
         if (_comp(array_left[i], array_right[j], comp) == 1)
         {
             PyObject_SetItem(array, Py_k, array_left[i]);
@@ -60,13 +62,13 @@ static int merge_impl(PyObject *array, PyObject *comp, size_t bl, size_t el, siz
     
     for ( ; i < init_left; ++i)
     {
-        PyObject *Py_k = PyLong_FromSize_t(k);
+        Py_k = PyLong_FromSize_t(k);
         PyObject_SetItem(array, Py_k, array_left[i]);
         k++;
     }
     for ( ; j < init_right; ++j)
     {
-        PyObject *Py_k = PyLong_FromSize_t(k);
+        Py_k = PyLong_FromSize_t(k);
         PyObject_SetItem(array, Py_k, array_right[j]);
         k++;
     }
@@ -137,4 +139,4 @@ static PyObject* merge_sort(PyObject *self, PyObject *args, PyObject *kwds)
     return args0;
 }
 
-#endif // CYGORITHMS_MERGE_SORT
+#endif // CYGORITHMS_MERGE_SORT_H

@@ -7,7 +7,7 @@ from typing import (
     Optional
 )
 
-from cygorithms.trees.cy_trees import (
+from cygorithms.trees.cy_binary_tree import (
     CyBinaryTree,
     CyBinarySearchTree,
     CyBinaryTreeTraversal
@@ -19,7 +19,7 @@ class BinaryTree:
         self,
         tree_type: CyBinaryTree,
         val: Any,
-        comp: Callable = lambda u, v: u < v
+        comp: Callable[[Any, Any], bool] = lambda u, v: u < v
     ):
         if not hasattr(comp, "__call__"):
             raise TypeError(
@@ -51,7 +51,7 @@ class BinarySearchTree(BinaryTree):
     def __init__(
         self,
         val: Optional[Any] = None,
-        comp: Callable = lambda u, v: u < v
+        comp: Callable[[Any, Any], bool] = lambda u, v: u < v
     ):
         super().__init__(CyBinarySearchTree, val, comp)
 

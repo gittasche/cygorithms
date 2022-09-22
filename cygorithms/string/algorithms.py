@@ -1,6 +1,7 @@
 import ctypes
 import os.path
 import platform
+from typing import List
 
 
 curr_dir = os.path.abspath(os.path.dirname(os.path.expanduser(__file__)))
@@ -40,7 +41,23 @@ kmp_free.argtypes = [
 ]
 
 
-def knuth_morris_pratt(text: str, query: str):
+def knuth_morris_pratt(text: str, query: str) -> List[int]:
+    """
+    Knuth-Morris-Pratt algorithm for pattern
+    string search implemented with ctypes.
+
+    Parameters
+    ----------
+    text : str
+        original text to search in
+    query : str
+        pattern to be searched in ``text``
+
+    Returns
+    -------
+    positions : list of integers
+        positions of occurrences of ``query`` in ``text``
+    """
     if not isinstance(text, str):
         raise TypeError(
             "`text` must be a string instance,"
