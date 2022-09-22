@@ -2,24 +2,33 @@ from __future__ import annotations
 from typing import (
     Callable,
     Any,
-    Optional
+    Optional,
+    Union
 )
 
 from cygorithms.trees.cy_heap import CyBinaryHeap
 
 
-class Heap:
+COMPS = {
+    "min": lambda u, v: u < v,
+    "max": lambda u, v: u > v
+}
+
+class BinaryHeap:
     def __init__(
         self,
         val: Optional[Any] = None,
-        comp: Callable[[Any, Any], bool] = lambda u, v: u < v
+        comp: Union[Callable[[Any, Any], bool], str] = lambda u, v: u < v
     ) -> None:
-        if not hasattr(comp, "__call__"):
+        if comp in COMPS:
+            self.comp = COMPS[comp]
+        elif hasattr(comp, "__call__"):
+            self.comp = comp
+        else:
             raise TypeError(
-                "`comp` must be callable,"
+                "`comp` must be 'min', 'max' or callable,"
                 f" got `comp` of type {type(comp).__name__}"
             )
-        self.comp = comp
         if val is None:
             self.heap = None
         else:
@@ -31,7 +40,7 @@ class Heap:
         else:
             return self.heap.is_empty()
 
-    def insert(self, val: Any) -> Heap:
+    def insert(self, val: Any) -> BinaryHeap:
         if self.heap is None:
             self.heap = CyBinaryHeap(val, self.comp)
         else:

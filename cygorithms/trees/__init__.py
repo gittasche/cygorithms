@@ -4,11 +4,11 @@ from cygorithms.trees.binary_tree import (
 )
 
 from cygorithms.trees.heap import (
-    Heap
+    BinaryHeap
 )
 
 __all__ = [
     "BinarySearchTree",
     "BinaryTreeTraversal",
-    "Heap"
+    "BinaryHeap"
 ]
