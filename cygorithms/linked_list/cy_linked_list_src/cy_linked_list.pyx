@@ -5,7 +5,7 @@ cdef class CyLinkedListNode:
     cdef object data
     cdef CyLinkedListNode next
 
-    def __init__(self, val):
+    def __init__(self, object val):
         self.data = val
         self.next = None
 
@@ -18,7 +18,7 @@ cdef class CyDoubleLinkedListNode:
     cdef CyDoubleLinkedListNode next
     cdef CyDoubleLinkedListNode prev
 
-    def __init__(self, val):
+    def __init__(self, object val):
         self.data = val
         self.next = None
         self.prev = None

@@ -166,17 +166,37 @@ def get_linked_list_ext() -> List[Extension]:
 
 
 def get_trees_ext() -> List[Extension]:
-    trees_name = ".".join([__name__, "trees", "cy_trees"])
-    trees_sources = [
+    tree_node_name = ".".join([__name__, "trees", "cy_trees_src", "cy_tree_node"])
+    tree_node_sources = [
+        "/".join([__name__, "trees", "cy_trees_src", "cy_tree_node.pyx"])
+    ]
+
+    tree_node_ext = Extension(
+        name=tree_node_name,
+        sources=tree_node_sources
+    )
+
+    binary_tree_name = ".".join([__name__, "trees", "cy_binary_tree"])
+    binary_tree_sources = [
         "/".join([__name__, "trees", "cy_trees_src", "cy_binary_tree.pyx"])
     ]
 
-    trees_ext = Extension(
-        name=trees_name,
-        sources=trees_sources
+    binary_tree_ext = Extension(
+        name=binary_tree_name,
+        sources=binary_tree_sources
     )
 
-    trees_ext_full = [trees_ext]
+    heap_name = ".".join([__name__, "trees", "cy_heap"])
+    heap_sources = [
+        "/".join([__name__, "trees", "cy_trees_src", "cy_heap.pyx"])
+    ]
+
+    heap_ext = Extension(
+        name=heap_name,
+        sources=heap_sources
+    )
+
+    trees_ext_full = [tree_node_ext, binary_tree_ext, heap_ext]
 
     return trees_ext_full
 
@@ -227,5 +247,6 @@ setup(
         "install_lib": InstallLib
     },
     include_package_data=True,
+    package_data={"": ["*.pxd"]},
     zip_safe=False
 )

@@ -7,7 +7,7 @@ from typing import (
     Optional
 )
 
-from cygorithms.trees.cy_trees import (
+from cygorithms.trees.cy_binary_tree import (
     CyBinaryTree,
     CyBinarySearchTree,
     CyBinaryTreeTraversal

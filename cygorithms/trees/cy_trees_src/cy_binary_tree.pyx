@@ -1,24 +1,25 @@
 import cython
+from cy_trees_src.cy_tree_node cimport CyTreeNode
 from cygorithms.arrays.c_array import DynamicOneDArray, OneDArray
 from cygorithms.arrays.c_array import ArrayStack, ArrayQueue
 
 
-cdef class CyTreeNode:
-    cdef public bint is_root
-    cdef public object data
-    cdef public int left
-    cdef public int right
-    cdef public int parent
+# cdef class CyTreeNode:
+#     cdef bint is_root
+#     cdef object data
+#     cdef int left
+#     cdef int right
+#     cdef int parent
 
-    def __init__(self, val):
-        self.is_root = False
-        self.data = val
-        self.left = -1
-        self.right = -1
-        self.parent = -1
+#     def __init__(self, object val):
+#         self.is_root = False
+#         self.data = val
+#         self.left = -1
+#         self.right = -1
+#         self.parent = -1
 
-    def __str__(self):
-        return str(self.data)
+#     def __str__(self):
+#         return str(self.data)
 
 
 cdef class CyBinaryTree:
@@ -27,7 +28,7 @@ cdef class CyBinaryTree:
     cdef int size
     cdef object comp
 
-    def __init__(self, val, comp):
+    def __init__(self, object val, object comp):
         root = CyTreeNode(val)
         root.is_root = True
         self.root_idx = 0
@@ -50,7 +51,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
     def is_empty(self):
         return self.tree[self.root_idx].data is None
     
-    def insert(self, val):
+    def insert(self, object val):
         cdef int curr_idx
 
         curr_idx = self.search(val)
@@ -83,7 +84,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
                     break
                 curr_idx = self.tree[curr_idx].right
 
-    def search(self, val):
+    def search(self, object val):
         cdef int curr_idx
 
         curr_idx = self.root_idx
@@ -98,7 +99,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
                 curr_idx = self.tree[curr_idx].right
         return curr_idx
 
-    def delete(self, val):
+    def delete(self, object val):
         cdef int curr_idx, succ, succ_parent, child
 
         curr_idx = self.search(val)
@@ -154,7 +155,7 @@ cdef class CyBinarySearchTree(CyBinaryTree):
 cdef class CyBinaryTreeTraversal:
     cdef CyBinaryTree tree
 
-    def __init__(self, tree):
+    def __init__(self, CyBinaryTree tree):
         self.tree = tree
     
     def _in_order(self):
