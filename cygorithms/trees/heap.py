@@ -7,6 +7,7 @@ from typing import (
 
 from cygorithms.trees.cy_heap import CyBinaryHeap
 
+
 class Heap:
     def __init__(
         self,
@@ -23,7 +24,7 @@ class Heap:
             self.heap = None
         else:
             self.heap = CyBinaryHeap(val, comp)
-    
+
     def is_empty(self) -> bool:
         if self.heap is None:
             return True
