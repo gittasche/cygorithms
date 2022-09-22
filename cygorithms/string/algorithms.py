@@ -52,7 +52,7 @@ def knuth_morris_pratt(text: str, query: str) -> List[int]:
         original text to search in
     query : str
         pattern to be searched in ``text``
-    
+
     Returns
     -------
     positions : list of integers

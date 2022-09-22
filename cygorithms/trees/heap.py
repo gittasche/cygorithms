@@ -14,6 +14,7 @@ COMPS = {
     "max": lambda u, v: u > v
 }
 
+
 class BinaryHeap:
     def __init__(
         self,
