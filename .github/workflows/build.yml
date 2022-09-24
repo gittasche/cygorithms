@@ -11,7 +11,7 @@ jobs:
   check-build-trigger:
     name: Check build trigger
     runs-on: ubuntu-latest
-    id: github.repository == 'cygorithms/cygorithms'
+    if: github.repository == 'cygorithms/cygorithms'
     outputs:
       build: ${{ steps.check_build_trigger.outputs.build }}
 
@@ -21,7 +21,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       
-      - if: check_build_trigger
+      - id: check_build_trigger
         name: Check build trigger
         run: bash build_tools/check_build_trigger.sh
       
