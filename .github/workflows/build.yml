@@ -7,10 +7,11 @@ on:
     branches: [ main, dev ]
   
 jobs:
+
   check-build-trigger:
     name: Check build trigger
     runs-on: ubuntu-latest
-    if: github.repository == 'cygorithms/cygorithms'
+    id: github.repository == 'cygorithms/cygorithms'
     outputs:
       build: ${{ steps.check_build_trigger.outputs.build }}
 
