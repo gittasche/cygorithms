@@ -12,7 +12,7 @@ jobs:
 
     name: Check build trigger
     runs-on: ubuntu-latest
-    if: github.repository == 'cygorithms/cygorithms'
+    # if: github.repository == 'cygorithms/cygorithms'
     outputs:
       build: ${{ steps.check_build_trigger.outputs.build }}
 
