@@ -8,7 +8,8 @@ on:
   
 jobs:
 
-  check-build-trigger:
+  check_build_trigger:
+
     name: Check build trigger
     runs-on: ubuntu-latest
     if: github.repository == 'cygorithms/cygorithms'
