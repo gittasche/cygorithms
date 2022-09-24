@@ -4,24 +4,6 @@ from cygorithms.arrays.c_array import DynamicOneDArray, OneDArray
 from cygorithms.arrays.c_array import ArrayStack, ArrayQueue
 
 
-# cdef class CyTreeNode:
-#     cdef bint is_root
-#     cdef object data
-#     cdef int left
-#     cdef int right
-#     cdef int parent
-
-#     def __init__(self, object val):
-#         self.is_root = False
-#         self.data = val
-#         self.left = -1
-#         self.right = -1
-#         self.parent = -1
-
-#     def __str__(self):
-#         return str(self.data)
-
-
 cdef class CyBinaryTree:
     cdef int root_idx
     cdef object tree
