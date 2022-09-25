@@ -7,9 +7,32 @@ on:
     branches: [ main, dev ]
   
 jobs:
+
+  check_build_trigger:
+
+    name: Check build trigger
+    runs-on: ubuntu-latest
+    if: github.repository == 'gittasche/cygorithms'
+    outputs:
+      build: ${{ steps.check_build_trigger.outputs.build }}
+
+    steps:
+      - name: Checkout cygorithms
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.head_commit.sha }}
+      
+      - id: check_build_trigger
+        name: Check build trigger
+        run: bash build_tools/check_build_trigger.sh
+      
   build-ubuntu:
 
+    name: build and test for cp${{ matrix.python-version }}-ubuntu
     runs-on: ubuntu-latest
+    needs: check_build_trigger
+    if: needs.check_build_trigger.outputs.build
+
     strategy:
       max-parallel: 5
       matrix:
@@ -37,7 +60,11 @@ jobs:
 
   build-windows:
 
+    name: build and test for cp${{ matrix.python-version }}-windows
     runs-on: windows-latest
+    needs: check_build_trigger
+    if: needs.check_build_trigger.outputs.build
+
     strategy:
       max-parallel: 5
       matrix:
