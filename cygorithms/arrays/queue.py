@@ -10,6 +10,20 @@ from typing import (
 
 
 class Queue:
+    """
+    Contiguous memory queue class
+
+    Parameters
+    ----------
+    dtype: python type
+        type of data in queue
+    size: int, optional
+        size of queue, default ``len(data)`` if
+        ``data`` is provided and ``0`` if its not
+    data: sequence, optional
+        sequence of elements of type ``dtype`` to input
+        into queue, default empty list  
+    """
     def __init__(
         self,
         dtype: Type,
@@ -46,16 +60,46 @@ class Queue:
         self.queue = c_array.ArrayQueue(dtype, *args, **kwargs)
 
     def is_empty(self) -> bool:
+        """
+        Check if queue is empty
+
+        Returns
+        -------
+        bool, True if empty else False
+        """
         return self.queue.is_empty()
 
     def __len__(self) -> int:
         return len(self.queue)
 
     def push(self, item: Any) -> None:
+        """
+        Push ``item`` to the queue
+
+        Parameters
+        ----------
+        item: any
+            object of type ``dtype``
+        """
         self.queue.push(item)
 
     def pop(self) -> Any:
+        """
+        Get first element if queue not empty
+        and pop it from queue
+
+        Returns
+        -------
+        Any, first element
+        """
         return self.queue.pop()
 
     def peek(self) -> Any:
+        """
+        Get first element if queue not empty
+
+        Returns
+        -------
+        Any, first element
+        """
         return self.queue.peek()
