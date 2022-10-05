@@ -22,7 +22,7 @@ class Queue:
         ``data`` is provided and ``0`` if its not
     data: sequence, optional
         sequence of elements of type ``dtype`` to input
-        into queue, default empty list  
+        into queue, default empty list
     """
     def __init__(
         self,

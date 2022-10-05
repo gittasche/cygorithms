@@ -22,7 +22,7 @@ class Stack:
         ``data`` is provided and ``0`` if its not
     data: sequence, optional
         sequence of elements of type ``dtype`` to input
-        into stack, default empty list  
+        into stack, default empty list
     """
     def __init__(
         self,

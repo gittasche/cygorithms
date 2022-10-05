@@ -15,7 +15,6 @@ def set_kmp_traits() -> Tuple[Callable]:
         ctypes.c_size_t
     ]
 
-
     do_match_func = LIB.do_match
     do_match_func.restype = ctypes.POINTER(ctypes.c_int)
     do_match_func.argtypes = [
@@ -26,7 +25,6 @@ def set_kmp_traits() -> Tuple[Callable]:
         ctypes.c_size_t,
         ctypes.POINTER(ctypes.c_int)
     ]
-
 
     kmp_free = LIB.kmp_free
     kmp_free.restype = None
