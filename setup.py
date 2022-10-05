@@ -39,6 +39,10 @@ class BuildExt(build_ext.build_ext):
             super().build_extension(ext)
 
     def build_cmake_extension(self) -> None:
+        """
+        Build ctypes extension with CMake
+        and copy .dll file to the source folder
+        """
         ext_lib_name = lib_name()
 
         lib_package_path = os.path.join(CURR_DIR, __name__, ext_lib_name)

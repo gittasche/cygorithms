@@ -1,13 +1,15 @@
-from __future__ import annotations
 from typing import (
     Callable,
     Any,
     Optional,
-    Union
+    Union,
+    TypeVar
 )
 
 from cygorithms.trees.cy_heap import CyBinaryHeap
 
+
+Self = TypeVar("Self", bound="BinaryHeap")
 
 COMPS = {
     "min": lambda u, v: u < v,
@@ -41,7 +43,7 @@ class BinaryHeap:
         else:
             return self.heap.is_empty()
 
-    def insert(self, val: Any) -> BinaryHeap:
+    def insert(self, val: Any) -> Self:
         if self.heap is None:
             self.heap = CyBinaryHeap(val, self.comp)
         else:

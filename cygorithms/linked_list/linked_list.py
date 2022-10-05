@@ -1,6 +1,5 @@
-from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, TypeVar
 
 from .cy_linked_list import (
     CyLinkedList,
@@ -8,6 +7,9 @@ from .cy_linked_list import (
     CyDoubleLinkedList,
     CyDoubleCircularLinkedList
 )
+
+
+Self = TypeVar("Self", bound="BaseLinkedList")
 
 
 class BaseLinkedList(ABC):
@@ -37,7 +39,7 @@ class BaseLinkedList(ABC):
         index = self._check_index(index)
         return self.list.__getitem__(index)
 
-    def addright(self, val: Any) -> BaseLinkedList:
+    def addright(self, val: Any) -> Self:
         """
         add element ``val`` too the end of the list.
 
@@ -53,7 +55,7 @@ class BaseLinkedList(ABC):
         self.list.addright(val)
         return self
 
-    def addleft(self, val) -> BaseLinkedList:
+    def addleft(self, val) -> Self:
         """
         add element ``val`` too the begin of the list.
 
@@ -69,7 +71,7 @@ class BaseLinkedList(ABC):
         self.list.addleft(val)
         return self
 
-    def popright(self) -> BaseLinkedList:
+    def popright(self) -> Self:
         """
         pop element from the end of the list.
 
@@ -80,7 +82,7 @@ class BaseLinkedList(ABC):
         self.list.popright()
         return self
 
-    def popleft(self) -> BaseLinkedList:
+    def popleft(self) -> Self:
         """
         pop element from the begin of the list.
 
@@ -91,7 +93,7 @@ class BaseLinkedList(ABC):
         self.list.popleft()
         return self
 
-    def insert_after(self, index: int, val: Any) -> BaseLinkedList:
+    def insert_after(self, index: int, val: Any) -> Self:
         """
         insert element ``val`` after ``index``-th element
 

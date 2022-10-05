@@ -1,10 +1,10 @@
-from __future__ import annotations
 from typing import (
     Callable,
     Any,
     List,
     Literal,
-    Optional
+    Optional,
+    TypeVar
 )
 
 from cygorithms.trees.cy_binary_tree import (
@@ -12,6 +12,9 @@ from cygorithms.trees.cy_binary_tree import (
     CyBinarySearchTree,
     CyBinaryTreeTraversal
 )
+
+
+Self = TypeVar("Self", bound="BinaryTree")
 
 
 class BinaryTree:
@@ -34,11 +37,11 @@ class BinaryTree:
     def is_empty(self) -> bool:
         return self.tree.is_empty()
 
-    def insert(self, val: Any) -> BinaryTree:
+    def insert(self, val: Any) -> Self:
         self.tree.insert(val)
         return self
 
-    def delete(self, val: Any) -> BinaryTree:
+    def delete(self, val: Any) -> Self:
         self.tree.delete(val)
         return self
 
